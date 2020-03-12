@@ -126,6 +126,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Setting_UI";
             this.Text = "系統設定";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Setting_UI_FormClosing);
+            this.Load += new System.EventHandler(this.Setting_UI_Load);
             this.ST_TabControl.ResumeLayout(false);
             this.ST_TP_Normal.ResumeLayout(false);
             this.ST_TP_Normal.PerformLayout();

@@ -20,17 +20,39 @@ namespace Chest_Label_Tool
         {
             InitializeComponent();
             SettingObj = settingobj;
+        }
+
+        private void Setting_UI_Load(object sender, EventArgs e)
+        {
+
             SettingInit();
         }
 
+        
+
+        private void Setting_UI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //當使用者按下X關閉視窗，真正的行為應該是要隱藏視窗
+            e.Cancel = true;
+            this.Hide();
+            //對目前畫面上所有設定值紀錄
+            ReLoadSetting();
+            SettingObj.Save_Setting();
+        }
 
 
         /// <summary>
         /// 將設定檔載入畫面
         /// </summary>
-        private void SettingInit() 
+        private void SettingInit()
         {
             ST_TP_NOR_txtSavePath.Text = SettingObj.SavePath;
+        }
+
+
+        private void ReLoadSetting() 
+        {
+            SettingObj.SavePath = ST_TP_NOR_txtSavePath.Text;
         }
     }
 }

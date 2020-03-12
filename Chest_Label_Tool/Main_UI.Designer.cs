@@ -28,16 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_UI));
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.tbFilebtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
-            this.cvibImage = new Emgu.CV.UI.ImageBox();
             this.ToolBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cvibImage)).BeginInit();
             this.SuspendLayout();
             // 
             // ToolBar
@@ -47,7 +44,7 @@
             this.tbAboutbtn});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
-            this.ToolBar.Size = new System.Drawing.Size(800, 25);
+            this.ToolBar.Size = new System.Drawing.Size(1108, 25);
             this.ToolBar.TabIndex = 0;
             this.ToolBar.Text = "toolStrip1";
             // 
@@ -65,7 +62,7 @@
             // tbOpenFile
             // 
             this.tbOpenFile.Name = "tbOpenFile";
-            this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
+            this.tbOpenFile.Size = new System.Drawing.Size(122, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
             // 
@@ -83,32 +80,22 @@
             // tbSettingPage
             // 
             this.tbSettingPage.Name = "tbSettingPage";
-            this.tbSettingPage.Size = new System.Drawing.Size(180, 22);
+            this.tbSettingPage.Size = new System.Drawing.Size(122, 22);
             this.tbSettingPage.Text = "系統設定";
             this.tbSettingPage.Click += new System.EventHandler(this.tbSettingPage_Click);
-            // 
-            // cvibImage
-            // 
-            this.cvibImage.Location = new System.Drawing.Point(12, 28);
-            this.cvibImage.Name = "cvibImage";
-            this.cvibImage.Size = new System.Drawing.Size(776, 410);
-            this.cvibImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.cvibImage.TabIndex = 2;
-            this.cvibImage.TabStop = false;
             // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.cvibImage);
+            this.ClientSize = new System.Drawing.Size(1108, 601);
             this.Controls.Add(this.ToolBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Main_UI";
             this.Text = "胸腔影像標記程式";
+            this.Load += new System.EventHandler(this.Main_UI_Load);
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cvibImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,7 +106,6 @@
         private System.Windows.Forms.ToolStrip ToolBar;
         private System.Windows.Forms.ToolStripDropDownButton tbFilebtn;
         private System.Windows.Forms.ToolStripMenuItem tbOpenFile;
-        private Emgu.CV.UI.ImageBox cvibImage;
         private System.Windows.Forms.ToolStripDropDownButton tbAboutbtn;
         private System.Windows.Forms.ToolStripMenuItem tbSettingPage;
     }

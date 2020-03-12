@@ -79,10 +79,10 @@ namespace Chest_Label_Tool.Lib
         /// <summary>
         /// 將設定檔案寫入硬碟
         /// </summary>
-        private void Save_Setting() 
+        public void Save_Setting() 
         {
             string jsonstr = JsonConvert.SerializeObject(this);
-            Func.WriteText(SettingFileName, jsonstr);
+            Func.WriteText(SettingFileName, jsonstr,IsOverWrite:true);
         }
         /// <summary>
         /// 檢查設定檔的內容是否合理

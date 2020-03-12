@@ -39,18 +39,35 @@ namespace Chest_Label_Tool.Lib
         /// </summary>
         /// <param name="FilePath">目標檔案</param>
         /// <param name="Message">訊息內容</param>
+        /// <param name="IsOverWrite">是否複寫</param>
         /// <param name="IsAppend">是否附加訊息</param>
         /// <param name="ChangeLine">在結束時是否換行</param>
-        public static void WriteText(string FilePath,string Message,bool IsAppend = false,bool ChangeLine=false) 
+        public static void WriteText(string FilePath,string Message,bool IsOverWrite = true,bool IsAppend = false,bool ChangeLine=false) 
         {
+            #region 處理檔案是否存在問題
             if (CheckFileExist(FilePath)) 
             {
-                //檔案如果存在，則要檢查是否附加，不附加則程式直接跳出
-                if (!IsAppend) 
+                //檔案存在
+                if (IsOverWrite)
                 {
-                    return;
+                    //強制複寫，檔案刪除後再建立新檔案
+                    System.IO.File.Delete(FilePath);
+                }
+                else 
+                {
+                    //不強制複寫
+                    if (IsAppend)
+                    {
+                        //不複寫，附加，直接將檔案開啟後寫入
+                    }
+                    else
+                    {
+                        //不複寫，不附加，則退出該子程式
+                        return;
+                    }
                 }
             }
+            #endregion
             using (StreamWriter sw = new StreamWriter(FilePath, IsAppend,Encoding.UTF8)) 
             {
                 sw.Write(Message);
