@@ -3,14 +3,17 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 
 using Emgu.CV;
 using Emgu.CV.Util;
 using Emgu.CV.Structure;
+using Emgu.CV.UI;
 
 using Dicom;
 using Dicom.Imaging;
+using System.Windows.Forms;
 
 namespace Chest_Label_Tool.Lib
 {
@@ -43,6 +46,27 @@ namespace Chest_Label_Tool.Lib
                 dcmimage.RenderImage().AsClonedBitmap().Save(finalpath);
                 Result = finalpath;
             }
+            return Result;
+        }
+
+        /// <summary>
+        /// 把Click的點轉成圖像中的像素點
+        /// </summary>
+        /// <param name="imageBox"></param>
+        /// <param name="mouseEventArgs"></param>
+        /// <returns></returns>
+        public static Point GetImagePointFromImageBox(ImageBox imageBox, MouseEventArgs mouseEventArgs) 
+        {
+            double zoom = imageBox.ZoomScale;
+            Point Result = new Point(0,0);
+            //點位跟縮放比例有關西，所以畫面上的點位就是目前滑鼠點位除縮放即可得到大概位置
+            Result.X = (int)(mouseEventArgs.Location.X / zoom);
+            Result.Y = (int)(mouseEventArgs.Location.Y / zoom);
+            //要考慮到如果有ScrollBar就要針對對子去做位移
+            int horizontalScrollBarValue = imageBox.HorizontalScrollBar.Visible ? (int)imageBox.HorizontalScrollBar.Value : 0;
+            int verticalScrollBarValue = imageBox.VerticalScrollBar.Visible ? (int)imageBox.VerticalScrollBar.Value : 0;
+            Result.X += horizontalScrollBarValue;
+            Result.Y += verticalScrollBarValue;
             return Result;
         }
 

@@ -42,6 +42,9 @@ namespace Chest_Label_Tool
             }
         }
 
+
+
+        #region ToolBar
         private void tbOpenFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dialog = new OpenFileDialog())
@@ -54,14 +57,15 @@ namespace Chest_Label_Tool
                     string targetFileName = dcmFileName + ".jpg";
                     //檢查存檔路徑是否跟讀取影像有相同的影像，如果有則直接載入影像，如果沒有則轉檔載入
                     string targetFilePath = Path.Combine(SettingObj.SavePath, targetFileName);
-                    if (!Func.CheckFileExist(targetFilePath)) 
+                    if (!Func.CheckFileExist(targetFilePath))
                     {
                         //檔案不存在
                         string jpgFilePath = Image_Func.DcmToJPG(dcmFilePath, SettingObj.SavePath);
                         targetFilePath = jpgFilePath;
                     }
                     //顯示在ImageBox
-                    cvImageBox.Image = Image.FromFile(targetFilePath);
+                    Image<Bgr,Int32> img = new Image<Bgr, int>(targetFilePath);
+                    SettingImage(img);
                 }
             }
         }
@@ -71,6 +75,9 @@ namespace Chest_Label_Tool
             //打開系統設定UI
             SettingPage.Show();
         }
+        #endregion
+
+        #region cvImageBox
         private void panAndZoomPictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             if (RightNowImage != null)
@@ -80,5 +87,38 @@ namespace Chest_Label_Tool
                 MessageBox.Show(mess, "Point", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        private void cvImageBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (cvImageBox.Image != null)
+            {
+                Point ImagePoint = Image_Func.GetImagePointFromImageBox(cvImageBox, e);
+                MessageBox.Show(ImagePoint.ToString(), "OK");
+            }
+        }
+
+
+        /// <summary>
+        /// 設定影像到ImageBox
+        /// </summary>
+        /// <param name="Img"></param>
+        private void SettingImage(Image<Bgr, Int32> Img) 
+        {
+            RightNowImage = Img;
+            Size ImageWindoeSize = cvImageBox.Size;
+            Size ImageSize = RightNowImage.Size;
+            double X_Zoom_Rate = (double)ImageWindoeSize.Width / (double)ImageSize.Width;
+            double Y_Zoom_Rate = (double)ImageWindoeSize.Height / (double)ImageSize.Height;
+            double Final_Zoom_Rate = (X_Zoom_Rate + Y_Zoom_Rate) / 2;
+            cvImageBox.Image = RightNowImage;
+            cvImageBox.SetZoomScale(Final_Zoom_Rate, new Point(ImageWindoeSize.Width / 2, ImageWindoeSize.Height / 2));
+            cvImageBox.HorizontalScrollBar.Visible = true;
+            cvImageBox.VerticalScrollBar.Visible = true;
+        }
+        #endregion
+
+
+
+
+
     }
 }

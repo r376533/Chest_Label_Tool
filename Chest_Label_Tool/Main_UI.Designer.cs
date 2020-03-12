@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_UI));
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.tbFilebtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.cvImageBox = new Emgu.CV.UI.ImageBox();
             this.ToolBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ToolBar
@@ -84,11 +87,23 @@
             this.tbSettingPage.Text = "系統設定";
             this.tbSettingPage.Click += new System.EventHandler(this.tbSettingPage_Click);
             // 
+            // cvImageBox
+            // 
+            this.cvImageBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
+            this.cvImageBox.Location = new System.Drawing.Point(12, 28);
+            this.cvImageBox.Name = "cvImageBox";
+            this.cvImageBox.Size = new System.Drawing.Size(475, 561);
+            this.cvImageBox.TabIndex = 2;
+            this.cvImageBox.TabStop = false;
+            this.cvImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseClick);
+            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1108, 601);
+            this.Controls.Add(this.cvImageBox);
             this.Controls.Add(this.ToolBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Main_UI";
@@ -96,6 +111,7 @@
             this.Load += new System.EventHandler(this.Main_UI_Load);
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,6 +124,7 @@
         private System.Windows.Forms.ToolStripMenuItem tbOpenFile;
         private System.Windows.Forms.ToolStripDropDownButton tbAboutbtn;
         private System.Windows.Forms.ToolStripMenuItem tbSettingPage;
+        private Emgu.CV.UI.ImageBox cvImageBox;
     }
 }
 
