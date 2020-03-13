@@ -26,7 +26,7 @@ namespace Chest_Label_Tool
         private Setting SettingObj;
         private Setting_UI SettingPage;
 
-        private Image<Bgr, Int32> RightNowImage;
+        private Image<Bgr, Byte> RightNowImage, OriginalImage;
 
         public Main_UI()
         {
@@ -64,8 +64,9 @@ namespace Chest_Label_Tool
                         targetFilePath = jpgFilePath;
                     }
                     //顯示在ImageBox
-                    Image<Bgr,Int32> img = new Image<Bgr, int>(targetFilePath);
+                    Image<Bgr,Byte> img = new Image<Bgr, Byte>(targetFilePath);
                     SettingImage(img);
+                    
                 }
             }
         }
@@ -96,14 +97,15 @@ namespace Chest_Label_Tool
             }
         }
 
-
         /// <summary>
         /// 設定影像到ImageBox
         /// </summary>
-        /// <param name="Img"></param>
-        private void SettingImage(Image<Bgr, Int32> Img) 
+        /// <param name="Img">影像</param>
+        /// <param name="Img">是否經過編輯</param>
+        private void SettingImage(Image<Bgr, Byte> Img) 
         {
             RightNowImage = Img;
+            OriginalImage = Img;
             Size ImageWindoeSize = cvImageBox.Size;
             Size ImageSize = RightNowImage.Size;
             double X_Zoom_Rate = (double)ImageWindoeSize.Width / (double)ImageSize.Width;
@@ -113,11 +115,57 @@ namespace Chest_Label_Tool
             cvImageBox.SetZoomScale(Final_Zoom_Rate, new Point(ImageWindoeSize.Width / 2, ImageWindoeSize.Height / 2));
             cvImageBox.HorizontalScrollBar.Visible = true;
             cvImageBox.VerticalScrollBar.Visible = true;
+            AdjustmentGroup.Enabled = true;
         }
+
+
+
+
+
+
         #endregion
 
+        #region 影像微調設定
 
+        private void AdjustmentInit(bool IsEnable) 
+        {
+            AdjustmentGroup.Enabled = IsEnable;
 
+            if (IsEnable) 
+            {
+                trbImageBrightness.Value = 0;
+                trbImageContrast.Value = 0;
+            }
+        }
+
+        private void trbImageBrightness_Scroll(object sender, EventArgs e)
+        {
+            if (RightNowImage != null) 
+            {
+                int level = trbImageBrightness.Value;
+                RightNowImage = Image_Func.BrightnessLevel(OriginalImage, level);
+                cvImageBox.Image = RightNowImage;
+            }
+        }
+        private void btnImageBrightnessReset_Click(object sender, EventArgs e)
+        {
+            trbImageBrightness.Value = 0;
+            //要觸發亮度調整的方法
+            trbImageBrightness_Scroll(null,null);
+        }
+        private void trbImageContrast_Scroll(object sender, EventArgs e)
+        {
+            if (RightNowImage != null)
+            {
+
+            }
+        }
+        private void btnImageContrastReset_Click(object sender, EventArgs e)
+        {
+            trbImageContrast.Value = 0;
+        }
+
+        #endregion
 
 
     }
