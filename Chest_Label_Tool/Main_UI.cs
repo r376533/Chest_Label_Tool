@@ -157,12 +157,15 @@ namespace Chest_Label_Tool
         {
             if (RightNowImage != null)
             {
-
+                int level = trbImageContrast.Value;
+                RightNowImage = Image_Func.ContrastLevel(OriginalImage, level);
+                cvImageBox.Image = RightNowImage;
             }
         }
         private void btnImageContrastReset_Click(object sender, EventArgs e)
         {
             trbImageContrast.Value = 0;
+            trbImageContrast_Scroll(null, null);
         }
 
         #endregion
