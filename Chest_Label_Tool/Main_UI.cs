@@ -34,12 +34,17 @@ namespace Chest_Label_Tool
         }
         private void Main_UI_Load(object sender, EventArgs e)
         {
+            #region 設定
             SettingObj = new Setting(ConfigurationManager.AppSettings["SettingFileName"]);
             if (SettingPage == null)
             {
                 SettingPage = new Setting_UI(SettingObj);
                 SettingPage.Hide();
             }
+            #endregion
+            #region ActionGroup
+
+            #endregion
         }
 
 
@@ -116,12 +121,8 @@ namespace Chest_Label_Tool
             cvImageBox.HorizontalScrollBar.Visible = true;
             cvImageBox.VerticalScrollBar.Visible = true;
             AdjustmentGroup.Enabled = true;
+            ActionGroup.Enabled = true;
         }
-
-
-
-
-
 
         #endregion
 
@@ -142,9 +143,9 @@ namespace Chest_Label_Tool
         {
             if (RightNowImage != null) 
             {
-                int level = trbImageBrightness.Value;
-                RightNowImage = Image_Func.BrightnessLevel(OriginalImage, level);
-                cvImageBox.Image = RightNowImage;
+                int Blevel = trbImageBrightness.Value;
+                int Clevel = trbImageContrast.Value;
+                AdjustmentImage(OriginalImage, Clevel, Blevel);
             }
         }
         private void btnImageBrightnessReset_Click(object sender, EventArgs e)
@@ -157,19 +158,25 @@ namespace Chest_Label_Tool
         {
             if (RightNowImage != null)
             {
-                int level = trbImageContrast.Value;
-                RightNowImage = Image_Func.ContrastLevel(OriginalImage, level);
-                cvImageBox.Image = RightNowImage;
+                int Blevel = trbImageBrightness.Value;
+                int Clevel = trbImageContrast.Value;
+                AdjustmentImage(OriginalImage, Clevel, Blevel);
             }
         }
         private void btnImageContrastReset_Click(object sender, EventArgs e)
         {
             trbImageContrast.Value = 0;
+            //要觸發對比度調整的方法
             trbImageContrast_Scroll(null, null);
         }
 
+        private void AdjustmentImage(Image<Bgr,Byte> Image,int Contrast, int Brightness) 
+        {
+            Image<Bgr, Byte> after = Image_Func.BrightnessAndContrast(Image, Brightness, Contrast);
+            RightNowImage = after;
+            cvImageBox.Image = after;
+        }
         #endregion
-
 
     }
 }

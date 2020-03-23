@@ -71,33 +71,6 @@ namespace Chest_Label_Tool.Lib
         }
 
         /// <summary>
-        /// 調整亮度
-        /// </summary>
-        /// <param name="Image">影像</param>
-        /// <param name="Level">-100~100之間的整數</param>
-        /// <returns></returns>
-        public static Image<Bgr, Byte> BrightnessLevel(Image<Bgr, Byte> Image, int Level) 
-        {
-            Image<Bgr,Byte> tempimage = Image.Copy();
-            tempimage += Level;
-            return tempimage;
-        }
-        /// <summary>
-        /// 調整對比
-        /// </summary>
-        /// <param name="Image">影像</param>
-        /// <param name="Level">-100~100之間的整數</param>
-        /// <returns></returns>
-        public static Image<Bgr, Byte> ContrastLevel(Image<Bgr, Byte> Image, int Level) 
-        {
-            //Level為-100~100，所以要映射到0~2之間
-            double reallevel = ((Level * -1) + 100) * 0.01;
-            Image<Bgr, Byte> tempimage = Image.Copy();
-            tempimage._GammaCorrect(reallevel);
-            return tempimage;
-        }
-
-        /// <summary>
         /// 調整亮度跟暗度
         /// </summary>
         /// <param name="Image">原始圖像</param>
@@ -106,7 +79,14 @@ namespace Chest_Label_Tool.Lib
         /// <returns>調整後的影像</returns>
         public static Image<Bgr, Byte> BrightnessAndContrast(Image<Bgr, Byte> Image, int BrightnessLevel, int ContrastLevel) 
         {
-            throw new NotImplementedException();
+            //Level為-100~100，所以要映射到0~2之間
+            double reallevel = ((ContrastLevel) + 100) * 0.01;
+            Image<Bgr, Byte> tempimage = Image.Copy();
+            //調整對比度
+            tempimage = tempimage * reallevel;
+            //調整亮度
+            tempimage = tempimage + BrightnessLevel;
+            return tempimage;
         }
     }
 }

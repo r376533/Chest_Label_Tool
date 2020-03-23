@@ -43,11 +43,17 @@
             this.trbImageBrightness = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.ActionGroup = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblPointInfo = new System.Windows.Forms.Label();
+            this.cbAction = new System.Windows.Forms.ComboBox();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageBrightness)).BeginInit();
+            this.ActionGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // ToolBar
@@ -184,11 +190,67 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "亮度";
             // 
+            // ActionGroup
+            // 
+            this.ActionGroup.Controls.Add(this.cbAction);
+            this.ActionGroup.Controls.Add(this.lblPointInfo);
+            this.ActionGroup.Controls.Add(this.label4);
+            this.ActionGroup.Controls.Add(this.label3);
+            this.ActionGroup.Enabled = false;
+            this.ActionGroup.Location = new System.Drawing.Point(494, 184);
+            this.ActionGroup.Name = "ActionGroup";
+            this.ActionGroup.Size = new System.Drawing.Size(294, 115);
+            this.ActionGroup.TabIndex = 4;
+            this.ActionGroup.TabStop = false;
+            this.ActionGroup.Text = "行為";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "操作行為";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 65);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "打點資訊";
+            // 
+            // lblPointInfo
+            // 
+            this.lblPointInfo.AutoSize = true;
+            this.lblPointInfo.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblPointInfo.Location = new System.Drawing.Point(12, 81);
+            this.lblPointInfo.Name = "lblPointInfo";
+            this.lblPointInfo.Size = new System.Drawing.Size(21, 19);
+            this.lblPointInfo.TabIndex = 3;
+            this.lblPointInfo.Text = "...";
+            // 
+            // cbAction
+            // 
+            this.cbAction.FormattingEnabled = true;
+            this.cbAction.Items.AddRange(new object[] {
+            "拖曳",
+            "縮放",
+            "框選",
+            "打點"});
+            this.cbAction.Location = new System.Drawing.Point(8, 37);
+            this.cbAction.Name = "cbAction";
+            this.cbAction.Size = new System.Drawing.Size(273, 20);
+            this.cbAction.TabIndex = 4;
+            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 601);
+            this.Controls.Add(this.ActionGroup);
             this.Controls.Add(this.AdjustmentGroup);
             this.Controls.Add(this.cvImageBox);
             this.Controls.Add(this.ToolBar);
@@ -203,6 +265,8 @@
             this.AdjustmentGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageBrightness)).EndInit();
+            this.ActionGroup.ResumeLayout(false);
+            this.ActionGroup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,6 +287,11 @@
         private System.Windows.Forms.TrackBar trbImageBrightness;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox ActionGroup;
+        private System.Windows.Forms.Label lblPointInfo;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cbAction;
     }
 }
 
