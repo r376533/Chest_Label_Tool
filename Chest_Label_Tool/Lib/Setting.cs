@@ -23,7 +23,7 @@ namespace Chest_Label_Tool.Lib
         #endregion
 
         #region 影像設定
-
+        public double ImageMoveSmooth;
         #endregion
 
         public Setting(string SettingFile)
@@ -54,8 +54,7 @@ namespace Chest_Label_Tool.Lib
         private void Init_Setting() 
         {
             SavePath = Environment.CurrentDirectory + "\\" + "IMG" ;
-            
-            
+            ImageMoveSmooth = 100;
         }
 
         /// <summary>

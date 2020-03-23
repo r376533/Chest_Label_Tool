@@ -44,10 +44,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ActionGroup = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblPointInfo = new System.Windows.Forms.Label();
             this.cbAction = new System.Windows.Forms.ComboBox();
+            this.lblPointInfo = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblDebug = new System.Windows.Forms.ToolStripLabel();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -60,7 +61,8 @@
             // 
             this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbFilebtn,
-            this.tbAboutbtn});
+            this.tbAboutbtn,
+            this.lblDebug});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
             this.ToolBar.Size = new System.Drawing.Size(806, 25);
@@ -113,6 +115,11 @@
             this.cvImageBox.TabIndex = 2;
             this.cvImageBox.TabStop = false;
             this.cvImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseClick);
+            this.cvImageBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseDown);
+            this.cvImageBox.MouseEnter += new System.EventHandler(this.cvImageBox_MouseEnter);
+            this.cvImageBox.MouseLeave += new System.EventHandler(this.cvImageBox_MouseLeave);
+            this.cvImageBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseMove);
+            this.cvImageBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseUp);
             // 
             // AdjustmentGroup
             // 
@@ -204,34 +211,6 @@
             this.ActionGroup.TabStop = false;
             this.ActionGroup.Text = "行為";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "操作行為";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 65);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "打點資訊";
-            // 
-            // lblPointInfo
-            // 
-            this.lblPointInfo.AutoSize = true;
-            this.lblPointInfo.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lblPointInfo.Location = new System.Drawing.Point(12, 81);
-            this.lblPointInfo.Name = "lblPointInfo";
-            this.lblPointInfo.Size = new System.Drawing.Size(21, 19);
-            this.lblPointInfo.TabIndex = 3;
-            this.lblPointInfo.Text = "...";
-            // 
             // cbAction
             // 
             this.cbAction.FormattingEnabled = true;
@@ -244,6 +223,41 @@
             this.cbAction.Name = "cbAction";
             this.cbAction.Size = new System.Drawing.Size(273, 20);
             this.cbAction.TabIndex = 4;
+            this.cbAction.SelectedIndexChanged += new System.EventHandler(this.cbAction_SelectedIndexChanged);
+            // 
+            // lblPointInfo
+            // 
+            this.lblPointInfo.AutoSize = true;
+            this.lblPointInfo.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblPointInfo.Location = new System.Drawing.Point(12, 81);
+            this.lblPointInfo.Name = "lblPointInfo";
+            this.lblPointInfo.Size = new System.Drawing.Size(21, 19);
+            this.lblPointInfo.TabIndex = 3;
+            this.lblPointInfo.Text = "...";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 65);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "打點資訊";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "操作行為";
+            // 
+            // lblDebug
+            // 
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(94, 22);
+            this.lblDebug.Text = "toolStripLabel1";
             // 
             // Main_UI
             // 
@@ -292,6 +306,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbAction;
+        private System.Windows.Forms.ToolStripLabel lblDebug;
     }
 }
 

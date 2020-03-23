@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Chest_Label_Tool.Lib
 {
@@ -92,6 +93,39 @@ namespace Chest_Label_Tool.Lib
                 {
                     Result = sr.ReadToEnd();
                 }
+            }
+            return Result;
+        }
+        /// <summary>
+        /// 計算兩個Point的X、Y移動量
+        /// </summary>
+        /// <param name="point1">點位1</param>
+        /// <param name="point2">點位2</param>
+        /// <returns></returns>
+        public static int[] TowPointDiff(Point point1, Point point2) 
+        {
+            int x_diff = point1.X - point2.X;
+            int y_diff = point1.Y - point2.Y;
+            return new int[2] { x_diff, y_diff };
+        }
+        /// <summary>
+        /// 檢查值是否在某個區間中
+        /// </summary>
+        /// <param name="CheckValue">要檢查的值</param>
+        /// <param name="MaxValue">最大值</param>
+        /// <param name="MinValue"></param>
+        /// <param name="IsContentMaxMin">是否包含最大值與最小值</param>
+        /// <returns></returns>
+        public static bool CheckValueIsBetween(int CheckValue, int MaxValue, int MinValue,bool IsContentMaxMin=false) 
+        {
+            bool Result = false;
+            if (IsContentMaxMin)
+            {
+                Result = CheckValue <= MaxValue && CheckValue >= MinValue ? true : false;
+            }
+            else 
+            {
+                Result = CheckValue < MaxValue && CheckValue > MinValue ? true : false;
             }
             return Result;
         }

@@ -18,6 +18,7 @@ using Dicom.Imaging;
 
 
 using Chest_Label_Tool.Lib;
+using static Chest_Label_Tool.Lib.Enums;
 
 namespace Chest_Label_Tool
 {
@@ -27,6 +28,11 @@ namespace Chest_Label_Tool
         private Setting_UI SettingPage;
 
         private Image<Bgr, Byte> RightNowImage, OriginalImage;
+
+        private ProgramAction RightNowMode;
+        private bool IsInAction;
+        private bool IsMouseDown;
+        private Point LastTimeMousePoint;
 
         public Main_UI()
         {
@@ -43,7 +49,9 @@ namespace Chest_Label_Tool
             }
             #endregion
             #region ActionGroup
-
+            RightNowMode = ProgramAction.None;
+            IsInAction = false;
+            IsMouseDown = false;
             #endregion
         }
 
@@ -84,29 +92,113 @@ namespace Chest_Label_Tool
         #endregion
 
         #region cvImageBox
-        private void panAndZoomPictureBox1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (RightNowImage != null)
-            {
-                MouseEventArgs MouseEvent = (MouseEventArgs)e;
-                string mess = String.Format("{0}\n{1}", MouseEvent.Location.ToString(), cvImageBox.ZoomScale);
-                MessageBox.Show(mess, "Point", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
         private void cvImageBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (cvImageBox.Image != null)
             {
-                Point ImagePoint = Image_Func.GetImagePointFromImageBox(cvImageBox, e);
-                MessageBox.Show(ImagePoint.ToString(), "OK");
+
+            }
+        }
+        private void cvImageBox_MouseEnter(object sender, EventArgs e)
+        {
+            if (cvImageBox.Image != null) 
+            {
+                IsInAction = true;
+                lblDebug.Text = "Action Enter";
+                switch (RightNowMode)
+                {
+                    case ProgramAction.Drag:
+                        
+                        break;
+                    case ProgramAction.Zoom:
+                        cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
+                        break;
+                }
             }
         }
 
+        private void cvImageBox_MouseLeave(object sender, EventArgs e)
+        {
+            if (cvImageBox.Image != null)
+            {
+                IsInAction = false;
+                cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
+                lblDebug.Text = "Action Leave";
+                switch (RightNowMode)
+                {
+                    case ProgramAction.Drag:
+
+                        break;
+                    case ProgramAction.Zoom:
+                        
+                        break;
+                }
+            }
+        }
+
+        private void cvImageBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (cvImageBox.Image != null)
+            {
+                lblDebug.Text = "Action Mouse Down";
+                IsMouseDown = true;
+                switch (RightNowMode)
+                {
+                    case ProgramAction.Drag:
+                        LastTimeMousePoint = e.Location;
+                        break;
+                }
+            }
+        }
+
+        private void cvImageBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (cvImageBox.Image != null && IsInAction && IsMouseDown)
+            {
+                //當前有圖片且有按下滑鼠時
+                lblDebug.Text = "Action Mouse Down";
+                int RightNowXValue = cvImageBox.HorizontalScrollBar.Value;
+                int RightNowYValue = cvImageBox.HorizontalScrollBar.Value;
+                int MaxXValue = cvImageBox.HorizontalScrollBar.Maximum;
+                int MinXValue = cvImageBox.HorizontalScrollBar.Minimum;
+                int MaxYValue = cvImageBox.VerticalScrollBar.Maximum;
+                int MinYValue = cvImageBox.VerticalScrollBar.Minimum;
+                double ZoomRate = cvImageBox.ZoomScale;
+                switch (RightNowMode)
+                {
+                    case ProgramAction.Drag:
+                        Point NewPoint = e.Location;
+                        int[] Point_Diff = Func.TowPointDiff(LastTimeMousePoint, NewPoint);
+                        
+                        int Proc_X = (int)Math.Floor(RightNowXValue - Point_Diff[0] / ZoomRate);
+                        int Proc_Y = (int)Math.Floor(RightNowYValue - Point_Diff[1] / ZoomRate);
+                        Proc_X = Func.CheckValueIsBetween(Proc_X, MaxXValue, MinXValue) ? Proc_X : 0;
+                        Proc_Y = Func.CheckValueIsBetween(Proc_Y, MaxYValue, MinYValue) ? Proc_X : 0;
+                        cvImageBox.VerticalScrollBar.Value += Proc_X;
+                        cvImageBox.HorizontalScrollBar.Value += Proc_Y;
+                        break;
+                }
+            }
+        }
+
+        private void cvImageBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (cvImageBox.Image != null)
+            {
+                lblDebug.Text = "Action Mouse Down";
+                IsMouseDown = false;
+                switch (RightNowMode)
+                {
+                    case ProgramAction.Drag:
+
+                        break;
+                }
+            }
+        }
         /// <summary>
         /// 設定影像到ImageBox
         /// </summary>
         /// <param name="Img">影像</param>
-        /// <param name="Img">是否經過編輯</param>
         private void SettingImage(Image<Bgr, Byte> Img) 
         {
             RightNowImage = Img;
@@ -120,8 +212,10 @@ namespace Chest_Label_Tool
             cvImageBox.SetZoomScale(Final_Zoom_Rate, new Point(ImageWindoeSize.Width / 2, ImageWindoeSize.Height / 2));
             cvImageBox.HorizontalScrollBar.Visible = true;
             cvImageBox.VerticalScrollBar.Visible = true;
+            cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
             AdjustmentGroup.Enabled = true;
             ActionGroup.Enabled = true;
+            cbAction.SelectedIndex = 0;
         }
 
         #endregion
@@ -169,6 +263,33 @@ namespace Chest_Label_Tool
             //要觸發對比度調整的方法
             trbImageContrast_Scroll(null, null);
         }
+
+        private void cbAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Action發生更動的話要處理的事情
+            int index = cbAction.SelectedIndex;
+            switch (index) 
+            {
+                case 0:
+                    RightNowMode = ProgramAction.Drag;
+                    break;
+                case 1:
+                    RightNowMode = ProgramAction.Zoom;
+                    break;
+                case 2:
+                    RightNowMode = ProgramAction.Select;
+                    break;
+                case 3:
+                    RightNowMode = ProgramAction.Point;
+                    break;
+                default:
+                    RightNowMode = ProgramAction.None;
+                    break;
+            }
+            lblDebug.Text = GetDescription(RightNowMode);
+        }
+
+        
 
         private void AdjustmentImage(Image<Bgr,Byte> Image,int Contrast, int Brightness) 
         {

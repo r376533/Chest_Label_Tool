@@ -14,6 +14,8 @@ namespace Chest_Label_Tool.Lib
 
         public enum ProgramAction 
         {
+            [Description("沒有選擇")]
+            None=-1,
             [Description("拖曳")]
             Drag = 0,
             [Description("縮放")]
