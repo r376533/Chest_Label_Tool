@@ -24,7 +24,6 @@ namespace Chest_Label_Tool
 
         private void Setting_UI_Load(object sender, EventArgs e)
         {
-
             SettingInit();
         }
 
@@ -46,13 +45,26 @@ namespace Chest_Label_Tool
         /// </summary>
         private void SettingInit()
         {
+            //常規
             ST_TP_NOR_txtSavePath.Text = SettingObj.SavePath;
+            //影像設定
+            npPlasticTubeCount.Value = SettingObj.PlasticTubeCount;
+            npTracheaLeftCount.Value = SettingObj.TracheaLeftCount;
+            npTracheaButtomCount.Value = SettingObj.TracheaButtomCount;
+            npTracheaRightCount.Value = SettingObj.TracheaRightCount;
+
         }
 
 
         private void ReLoadSetting() 
         {
+            //常規
             SettingObj.SavePath = ST_TP_NOR_txtSavePath.Text;
+            //影像設定
+            SettingObj.PlasticTubeCount = (int)npPlasticTubeCount.Value;
+            SettingObj.TracheaLeftCount = (int)npTracheaLeftCount.Value;
+            SettingObj.TracheaButtomCount = (int)npTracheaButtomCount.Value;
+            SettingObj.TracheaRightCount = (int)npTracheaRightCount.Value;
         }
     }
 }

@@ -23,7 +23,10 @@ namespace Chest_Label_Tool.Lib
         #endregion
 
         #region 影像設定
-        public double ImageMoveSmooth;
+        public int PlasticTubeCount;
+        public int TracheaLeftCount;
+        public int TracheaButtomCount;
+        public int TracheaRightCount;
         #endregion
 
         public Setting(string SettingFile)
@@ -53,8 +56,14 @@ namespace Chest_Label_Tool.Lib
         /// </summary>
         private void Init_Setting() 
         {
+            //常規設定
             SavePath = Environment.CurrentDirectory + "\\" + "IMG" ;
-            ImageMoveSmooth = 100;
+
+            //影像相關
+            PlasticTubeCount = 4;
+            TracheaLeftCount = 3;
+            TracheaButtomCount = 3;
+            TracheaRightCount = 3;
         }
 
         /// <summary>

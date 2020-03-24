@@ -36,8 +36,23 @@
             this.ST_TP_NOR_txtSavePath = new System.Windows.Forms.TextBox();
             this.ST_TP_NOR_lbSavePath = new System.Windows.Forms.Label();
             this.ST_TP_Image = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.npPlasticTubeCount = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.npTracheaButtomCount = new System.Windows.Forms.NumericUpDown();
+            this.npTracheaRightCount = new System.Windows.Forms.NumericUpDown();
+            this.npTracheaLeftCount = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ST_TabControl.SuspendLayout();
             this.ST_TP_Normal.SuspendLayout();
+            this.ST_TP_Image.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.npPlasticTubeCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.npTracheaButtomCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.npTracheaRightCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.npTracheaLeftCount)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ST_TabControl
@@ -109,6 +124,7 @@
             // 
             // ST_TP_Image
             // 
+            this.ST_TP_Image.Controls.Add(this.groupBox1);
             this.ST_TP_Image.Location = new System.Drawing.Point(4, 22);
             this.ST_TP_Image.Name = "ST_TP_Image";
             this.ST_TP_Image.Padding = new System.Windows.Forms.Padding(3);
@@ -116,6 +132,88 @@
             this.ST_TP_Image.TabIndex = 1;
             this.ST_TP_Image.Text = "影像設定";
             this.ST_TP_Image.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "塑膠氣管點數";
+            // 
+            // npPlasticTubeCount
+            // 
+            this.npPlasticTubeCount.Location = new System.Drawing.Point(8, 33);
+            this.npPlasticTubeCount.Name = "npPlasticTubeCount";
+            this.npPlasticTubeCount.Size = new System.Drawing.Size(99, 22);
+            this.npPlasticTubeCount.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(145, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(101, 12);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "氣管分岔左緣點數";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 58);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(101, 12);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "氣管分岔下緣點數";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(145, 58);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(101, 12);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "氣管分岔右緣點數";
+            // 
+            // npTracheaButtomCount
+            // 
+            this.npTracheaButtomCount.Location = new System.Drawing.Point(8, 72);
+            this.npTracheaButtomCount.Name = "npTracheaButtomCount";
+            this.npTracheaButtomCount.Size = new System.Drawing.Size(99, 22);
+            this.npTracheaButtomCount.TabIndex = 5;
+            // 
+            // npTracheaRightCount
+            // 
+            this.npTracheaRightCount.Location = new System.Drawing.Point(145, 73);
+            this.npTracheaRightCount.Name = "npTracheaRightCount";
+            this.npTracheaRightCount.Size = new System.Drawing.Size(101, 22);
+            this.npTracheaRightCount.TabIndex = 6;
+            // 
+            // npTracheaLeftCount
+            // 
+            this.npTracheaLeftCount.Location = new System.Drawing.Point(147, 33);
+            this.npTracheaLeftCount.Name = "npTracheaLeftCount";
+            this.npTracheaLeftCount.Size = new System.Drawing.Size(99, 22);
+            this.npTracheaLeftCount.TabIndex = 7;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.npTracheaRightCount);
+            this.groupBox1.Controls.Add(this.npTracheaLeftCount);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.npTracheaButtomCount);
+            this.groupBox1.Controls.Add(this.npPlasticTubeCount);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Enabled = false;
+            this.groupBox1.Location = new System.Drawing.Point(8, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(271, 105);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "標記點數";
             // 
             // Setting_UI
             // 
@@ -131,6 +229,13 @@
             this.ST_TabControl.ResumeLayout(false);
             this.ST_TP_Normal.ResumeLayout(false);
             this.ST_TP_Normal.PerformLayout();
+            this.ST_TP_Image.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.npPlasticTubeCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.npTracheaButtomCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.npTracheaRightCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.npTracheaLeftCount)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -145,5 +250,14 @@
         private System.Windows.Forms.TextBox ST_TP_NOR_txtSavePath;
         private System.Windows.Forms.Label ST_TP_NOR_lbSavePath;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.NumericUpDown npTracheaLeftCount;
+        private System.Windows.Forms.NumericUpDown npTracheaRightCount;
+        private System.Windows.Forms.NumericUpDown npTracheaButtomCount;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown npPlasticTubeCount;
+        private System.Windows.Forms.Label label2;
     }
 }
