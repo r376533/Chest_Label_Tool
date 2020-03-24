@@ -107,9 +107,6 @@ namespace Chest_Label_Tool
                 lblDebug.Text = "Action Enter";
                 switch (RightNowMode)
                 {
-                    case ProgramAction.Drag:
-                        
-                        break;
                     case ProgramAction.Zoom:
                         cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
                         break;
@@ -126,9 +123,6 @@ namespace Chest_Label_Tool
                 lblDebug.Text = "Action Leave";
                 switch (RightNowMode)
                 {
-                    case ProgramAction.Drag:
-
-                        break;
                     case ProgramAction.Zoom:
                         
                         break;
@@ -142,12 +136,6 @@ namespace Chest_Label_Tool
             {
                 lblDebug.Text = "Action Mouse Down";
                 IsMouseDown = true;
-                switch (RightNowMode)
-                {
-                    case ProgramAction.Drag:
-                        LastTimeMousePoint = e.Location;
-                        break;
-                }
             }
         }
 
@@ -166,17 +154,7 @@ namespace Chest_Label_Tool
                 double ZoomRate = cvImageBox.ZoomScale;
                 switch (RightNowMode)
                 {
-                    case ProgramAction.Drag:
-                        Point NewPoint = e.Location;
-                        int[] Point_Diff = Func.TowPointDiff(LastTimeMousePoint, NewPoint);
-                        
-                        int Proc_X = (int)Math.Floor(RightNowXValue - Point_Diff[0] / ZoomRate);
-                        int Proc_Y = (int)Math.Floor(RightNowYValue - Point_Diff[1] / ZoomRate);
-                        Proc_X = Func.CheckValueIsBetween(Proc_X, MaxXValue, MinXValue) ? Proc_X : 0;
-                        Proc_Y = Func.CheckValueIsBetween(Proc_Y, MaxYValue, MinYValue) ? Proc_X : 0;
-                        cvImageBox.VerticalScrollBar.Value += Proc_X;
-                        cvImageBox.HorizontalScrollBar.Value += Proc_Y;
-                        break;
+
                 }
             }
         }
@@ -189,9 +167,7 @@ namespace Chest_Label_Tool
                 IsMouseDown = false;
                 switch (RightNowMode)
                 {
-                    case ProgramAction.Drag:
 
-                        break;
                 }
             }
         }
@@ -271,15 +247,12 @@ namespace Chest_Label_Tool
             switch (index) 
             {
                 case 0:
-                    RightNowMode = ProgramAction.Drag;
-                    break;
-                case 1:
                     RightNowMode = ProgramAction.Zoom;
                     break;
-                case 2:
+                case 1:
                     RightNowMode = ProgramAction.Select;
                     break;
-                case 3:
+                case 2:
                     RightNowMode = ProgramAction.Point;
                     break;
                 default:

@@ -35,6 +35,7 @@
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblDebug = new System.Windows.Forms.ToolStripLabel();
             this.cvImageBox = new Emgu.CV.UI.ImageBox();
             this.AdjustmentGroup = new System.Windows.Forms.GroupBox();
             this.btnImageContrastReset = new System.Windows.Forms.Button();
@@ -48,7 +49,6 @@
             this.lblPointInfo = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.lblDebug = new System.Windows.Forms.ToolStripLabel();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -104,6 +104,12 @@
             this.tbSettingPage.Size = new System.Drawing.Size(122, 22);
             this.tbSettingPage.Text = "系統設定";
             this.tbSettingPage.Click += new System.EventHandler(this.tbSettingPage_Click);
+            // 
+            // lblDebug
+            // 
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(94, 22);
+            this.lblDebug.Text = "toolStripLabel1";
             // 
             // cvImageBox
             // 
@@ -215,7 +221,6 @@
             // 
             this.cbAction.FormattingEnabled = true;
             this.cbAction.Items.AddRange(new object[] {
-            "拖曳",
             "縮放",
             "框選",
             "打點"});
@@ -252,12 +257,6 @@
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 0;
             this.label3.Text = "操作行為";
-            // 
-            // lblDebug
-            // 
-            this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(94, 22);
-            this.lblDebug.Text = "toolStripLabel1";
             // 
             // Main_UI
             // 
