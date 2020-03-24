@@ -49,8 +49,6 @@ namespace Chest_Label_Tool.Lib
             }
         }
 
-
-
         /// <summary>
         /// 建立初始化設定檔案
         /// </summary>

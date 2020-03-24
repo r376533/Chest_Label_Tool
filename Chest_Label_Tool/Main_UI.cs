@@ -27,12 +27,12 @@ namespace Chest_Label_Tool
         private Setting SettingObj;
         private Setting_UI SettingPage;
 
+        private string ImagePath_Dcm, ImagePath_Jpg;
         private Image<Bgr, Byte> RightNowImage, OriginalImage;
 
         private ProgramAction RightNowMode;
         private bool IsInAction;
         private bool IsMouseDown;
-        private Point LastTimeMousePoint;
 
         public Main_UI()
         {
@@ -65,8 +65,8 @@ namespace Chest_Label_Tool
                 dialog.Filter = "*.dcm|*.dcm|All File(*.*)|*.*";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    string dcmFilePath = dialog.FileName;
-                    string dcmFileName = System.IO.Path.GetFileNameWithoutExtension(dcmFilePath);
+                    ImagePath_Dcm = dialog.FileName;
+                    string dcmFileName = System.IO.Path.GetFileNameWithoutExtension(ImagePath_Dcm);
                     string targetFileName = dcmFileName + ".jpg";
                     //檢查存檔路徑是否跟讀取影像有相同的影像，如果有則直接載入影像，如果沒有則轉檔載入
                     string targetFilePath = Path.Combine(SettingObj.SavePath, targetFileName);
@@ -76,10 +76,12 @@ namespace Chest_Label_Tool
                         string jpgFilePath = Image_Func.DcmToJPG(dcmFilePath, SettingObj.SavePath);
                         targetFilePath = jpgFilePath;
                     }
+                    ImagePath_Jpg = targetFilePath;
                     //顯示在ImageBox
                     Image<Bgr,Byte> img = new Image<Bgr, Byte>(targetFilePath);
                     SettingImage(img);
-                    
+                    LoadingLabelFile(ImagePath_Dcm, ImagePath_Jpg);
+
                 }
             }
         }
@@ -192,6 +194,7 @@ namespace Chest_Label_Tool
             AdjustmentGroup.Enabled = true;
             ActionGroup.Enabled = true;
             cbAction.SelectedIndex = 0;
+
         }
 
         #endregion
@@ -272,5 +275,42 @@ namespace Chest_Label_Tool
         }
         #endregion
 
+        #region 標籤記錄檔
+        /// <summary>
+        /// 載入標籤紀錄檔的方法
+        /// </summary>
+        /// <param name="DcmImagePath"></param>
+        private void LoadingLabelFile(string DcmImagePath,string JPGImagePath) 
+        {
+            string TargetPath = String.Empty ;
+            //先檢查紀錄檔案的路徑
+            #region 判斷路徑，最後會把決定好要讀檔的路徑放在TargetPath
+            if (!String.IsNullOrEmpty(DcmImagePath) && String.IsNullOrEmpty(JPGImagePath))
+            {
+                string dcmLabelLogPath = DcmImagePath.Remove(DcmImagePath.Length - 4, 4) + ".json";
+                string jpgLabelLogPath = DcmImagePath.Remove(JPGImagePath.Length - 4, 4) + ".json";
+                if (Func.CheckFileExist(dcmLabelLogPath))
+                {
+                    TargetPath = dcmLabelLogPath;
+                }
+                else if (Func.CheckFileExist(jpgLabelLogPath))
+                {
+                    TargetPath = jpgLabelLogPath;
+                }
+                else 
+                {
+                    //該影像沒有紀錄檔,直接結束
+                    return;
+                }
+            }
+            else 
+            {
+                return;
+            }
+            #endregion
+
+
+        }
+        #endregion
     }
 }
