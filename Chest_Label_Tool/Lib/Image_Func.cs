@@ -88,5 +88,43 @@ namespace Chest_Label_Tool.Lib
             tempimage = tempimage + BrightnessLevel;
             return tempimage;
         }
+
+        /// <summary>
+        /// 畫點
+        /// </summary>
+        /// <param name="Image"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public static Image<Bgr, Byte> DrawPoint(Image<Bgr, Byte> Image, Point point,Bgr DrawColor) 
+        {
+            //打點是pixel的，對於圖片太小，所以要以要打的點為中心，向外畫框框，即是打點
+            //Shift是擴散pixel量
+            int Shift = 15;
+            //擴散後的實際左上角的點
+            int LeftTop_X = point.X - Shift;
+            int LeftTop_Y = point.Y - Shift;
+            Point LeftTop = new Point(LeftTop_X > 0 ? LeftTop_X : 0, LeftTop_Y > 0 ? LeftTop_Y : 0);
+            Image<Bgr, Byte> img = Image.Copy();
+
+            Rectangle rect = new Rectangle(LeftTop.X, LeftTop_Y, Shift * 2, Shift * 2 );
+            img.Draw(rect, DrawColor, -1);
+            return img;
+        }
+
+        /// <summary>
+        /// 畫線
+        /// </summary>
+        /// <param name="Image"></param>
+        /// <param name="point1"></param>
+        /// <param name="point2"></param>
+        /// <param name="DrawColor"></param>
+        /// <returns></returns>
+        public static Image<Bgr, Byte> DrawLine(Image<Bgr, Byte> Image, Point point1, Point point2, Bgr DrawColor) 
+        {
+            Image<Bgr, Byte> img = Image.Copy();
+            LineSegment2D line = new LineSegment2D(point1, point2);
+            img.Draw(line, DrawColor, -1);
+            return img;
+        }
     }
 }

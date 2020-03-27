@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="Lib\Func.cs" />
     <Compile Include="Lib\Image_Func.cs" />
+    <Compile Include="Lib\SaveResultReader.cs" />
     <Compile Include="Lib\SaveResultV1.cs" />
     <Compile Include="Lib\SaveResultV2.cs" />
     <Compile Include="Lib\Setting.cs" />

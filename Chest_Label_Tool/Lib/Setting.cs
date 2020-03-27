@@ -20,6 +20,7 @@ namespace Chest_Label_Tool.Lib
 
         #region 常規設定
         public string SavePath;
+        public bool AutoSave;
         #endregion
 
         #region 影像設定
@@ -27,6 +28,7 @@ namespace Chest_Label_Tool.Lib
         public int TracheaLeftCount;
         public int TracheaButtomCount;
         public int TracheaRightCount;
+        public bool AutoChangeType;
         #endregion
 
         public Setting(string SettingFile)
@@ -45,7 +47,6 @@ namespace Chest_Label_Tool.Lib
                     //設定檔案存在，載入設定檔案
                     Load_Setting();
                 }
-                Check_Setting();
             }
         }
 
@@ -56,12 +57,13 @@ namespace Chest_Label_Tool.Lib
         {
             //常規設定
             SavePath = Environment.CurrentDirectory + "\\" + "IMG" ;
-
+            AutoSave = true;
             //影像相關
             PlasticTubeCount = 4;
             TracheaLeftCount = 3;
             TracheaButtomCount = 3;
             TracheaRightCount = 3;
+            AutoChangeType = true;
         }
 
         /// <summary>
@@ -89,15 +91,6 @@ namespace Chest_Label_Tool.Lib
         {
             string jsonstr = JsonConvert.SerializeObject(this);
             Func.WriteText(SettingFileName, jsonstr,IsOverWrite:true);
-        }
-        /// <summary>
-        /// 檢查設定檔的內容是否合理
-        /// </summary>
-        private void Check_Setting() 
-        {
-            #region 檢查存檔路徑是否存在
-            Func.CheckDirExist(SavePath);
-            #endregion
         }
     }
 

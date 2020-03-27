@@ -29,10 +29,13 @@ namespace Chest_Label_Tool
 
         private string ImagePath_Dcm, ImagePath_Jpg;
         private Image<Bgr, Byte> RightNowImage, OriginalImage;
+        private Bgr DrawColor;
 
         private ProgramAction RightNowMode;
         private bool IsInAction;
         private bool IsMouseDown;
+
+        private SaveResultV2 LabelLog;
 
         public Main_UI()
         {
@@ -53,6 +56,7 @@ namespace Chest_Label_Tool
             IsInAction = false;
             IsMouseDown = false;
             #endregion
+            DrawColor = new Bgr(0, 0, 255);
         }
 
 
@@ -73,7 +77,7 @@ namespace Chest_Label_Tool
                     if (!Func.CheckFileExist(targetFilePath))
                     {
                         //檔案不存在
-                        string jpgFilePath = Image_Func.DcmToJPG(dcmFilePath, SettingObj.SavePath);
+                        string jpgFilePath = Image_Func.DcmToJPG(ImagePath_Dcm, SettingObj.SavePath);
                         targetFilePath = jpgFilePath;
                     }
                     ImagePath_Jpg = targetFilePath;
@@ -98,7 +102,18 @@ namespace Chest_Label_Tool
         {
             if (cvImageBox.Image != null)
             {
+                //抓出影像中的點
+                Point ImageLocation = Image_Func.GetImagePointFromImageBox(cvImageBox, e);
+                switch (RightNowMode) 
+                {
+                    case ProgramAction.Zoom:
+                        break;
+                    case ProgramAction.Select:
+                        break;
+                    case ProgramAction.Point:
 
+                        break;
+                }
             }
         }
         private void cvImageBox_MouseEnter(object sender, EventArgs e)
@@ -197,6 +212,18 @@ namespace Chest_Label_Tool
 
         }
 
+
+        private void DrawPoint() 
+        {
+            
+
+
+            Image<Bgr, Byte> Image = Image_Func.DrawPoint(OriginalImage, point, color);
+            
+            RightNowImage = Image;
+            cvImageBox.Image = RightNowImage;
+        }
+
         #endregion
 
         #region 影像微調設定
@@ -285,10 +312,10 @@ namespace Chest_Label_Tool
             string TargetPath = String.Empty ;
             //先檢查紀錄檔案的路徑
             #region 判斷路徑，最後會把決定好要讀檔的路徑放在TargetPath
-            if (!String.IsNullOrEmpty(DcmImagePath) && String.IsNullOrEmpty(JPGImagePath))
+            if (!String.IsNullOrEmpty(DcmImagePath) && !String.IsNullOrEmpty(JPGImagePath))
             {
                 string dcmLabelLogPath = DcmImagePath.Remove(DcmImagePath.Length - 4, 4) + ".json";
-                string jpgLabelLogPath = DcmImagePath.Remove(JPGImagePath.Length - 4, 4) + ".json";
+                string jpgLabelLogPath = JPGImagePath.Remove(JPGImagePath.Length - 4, 4) + ".json";
                 if (Func.CheckFileExist(dcmLabelLogPath))
                 {
                     TargetPath = dcmLabelLogPath;
@@ -299,8 +326,7 @@ namespace Chest_Label_Tool
                 }
                 else 
                 {
-                    //該影像沒有紀錄檔,直接結束
-                    return;
+                    //該影像沒有紀錄檔
                 }
             }
             else 
@@ -309,8 +335,165 @@ namespace Chest_Label_Tool
             }
             #endregion
 
-
+            if (!String.IsNullOrEmpty(TargetPath))
+            {
+                LabelLog = SaveResultReader.ReadFromFile(TargetPath);
+            }
+            else 
+            {
+                LabelLog = new SaveResultV2(DcmImagePath, JPGImagePath);
+            }
+            LabelLogReLoad();
         }
+
+        /// <summary>
+        /// 將Label的紀錄讀取回去
+        /// </summary>
+        private void LabelLogReLoad() 
+        {
+            SaveResultV2 Log = LabelLog;
+            Image<Bgr,Byte> Img = OriginalImage.Copy();
+            if (Log != null) 
+            {
+                List<Point> TubeSet = Log.PlasticTubeSet;
+                List<List<Point>> BifurcationSet = Log.BifurcationSet;
+                #region 讀取塑膠氣管
+                if (TubeSet != null && TubeSet.Count > 0)
+                {
+                    for (int i = 0; i < TubeSet.Count; i++)
+                    {
+                        Point p = TubeSet[i];
+                        Img = Image_Func.DrawPoint(Img, p, DrawColor);
+                        if (i > 0) 
+                        {
+                            Img = Image_Func.DrawLine(Img,p, TubeSet[i-1],DrawColor);
+                        }
+                    }
+                }
+                #endregion
+
+                #region 讀取肺部分岔
+                if (BifurcationSet != null && BifurcationSet.Count > 0)
+                {
+                    foreach (List<Point> Bifurcation in BifurcationSet)
+                    {
+                        //巡迴氣管分岔，依序是左緣，下緣，右緣
+                        for (int i = 0; i < Bifurcation.Count; i++)
+                        {
+                            //巡迴標記點，用逆時鐘的方式
+                            Point p = Bifurcation[i];
+                            Img = Image_Func.DrawPoint(Img, p, DrawColor);
+                            if (i > 0)
+                            {
+                                Img = Image_Func.DrawLine(Img, p, TubeSet[i - 1], DrawColor);
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            RightNowImage = Img;
+            cvImageBox.Image = RightNowImage;
+        }
+
+        /// <summary>
+        /// 存入目前的紀錄檔
+        /// </summary>
+        private void SaveLabelFile() 
+        {
+        
+        }
+        #endregion
+
+        #region 處理標記
+        /// <summary>
+        /// 檢查目前標記的點是哪個點
+        /// </summary>
+        /// <returns></returns>
+        private string GetRightNowPointInfo() 
+        {
+            string Result = "";
+            List<Point> TubeSet = LabelLog.PlasticTubeSet;
+            List<List<Point>> BifurcationSet = LabelLog.BifurcationSet;
+            switch (TubeSet.Count) 
+            {
+                case 0:
+                    Result = "塑膠氣管左上";
+                    break;
+                case 1:
+                    Result = "塑膠氣管左下";
+                    break;
+                case 2:
+                    Result = "塑膠氣管右下";
+                    break;
+                case 3:
+                    Result = "塑膠氣管右上";
+                    break;
+            }
+            if (Result == "") 
+            {
+                switch (BifurcationSet.Count) 
+                {
+                    case 0:
+                        Result = "氣管左緣";
+                        switch (BifurcationSet[0].Count) 
+                        {
+                            case 0:
+                                Result += "上點";
+                                break;
+                            case 1:
+                                Result += "中點";
+                                break;
+                            case 2:
+                                Result += "下點";
+                                break;
+                        }
+                        break;
+                    case 1:
+                        Result = "氣管下緣";
+                        switch (BifurcationSet[0].Count)
+                        {
+                            case 0:
+                                Result += "左點";
+                                break;
+                            case 1:
+                                Result += "中點";
+                                break;
+                            case 2:
+                                Result += "右點";
+                                break;
+                        }
+                        break;
+                    case 2:
+                        Result = "氣管右緣";
+                        switch (BifurcationSet[0].Count)
+                        {
+                            case 0:
+                                Result += "下點";
+                                break;
+                            case 1:
+                                Result += "中點";
+                                break;
+                            case 2:
+                                Result += "上點";
+                                break;
+                        }
+                        break;
+                }
+            }
+            return Result;
+        }
+
+        /// <summary>
+        /// 打點到紀錄中
+        /// </summary>
+        /// <param name="point"></param>
+        private void SetPoint(Point point) 
+        {
+            
+        }
+
         #endregion
     }
 }
