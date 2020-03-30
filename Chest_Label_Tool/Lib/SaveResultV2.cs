@@ -25,17 +25,14 @@ namespace Chest_Label_Tool.Lib
         public double Optimize_Brightness;
         //該影像在標記時，對比度偏移值
         public double Optimize_Contrast;
-        //塑膠ㄊ氣管的標記值，4個點位
-        public List<Point> PlasticTubeSet;
-        //肺部分岔的標記值，共三種(順序分別為左緣，下緣，右緣)，每種都會有三個點，最後呈現9的點為逆時鐘方式記錄
-        public List<List<Point>> BifurcationSet;
+        //影像標記點
+        public List<Point> KeyPoint;
 
         public SaveResultV2(string dcmPath,string jpgPath)
         {
-            ImageFileName_dcm = FileName + ".dcm";
-            ImageFileName_jpg = FileName + ".jpg";
-            PlasticTubeSet = new List<Point>();
-            BifurcationSet = new List<List<Point>>();
+            ImageFileName_dcm = dcmPath + ".dcm";
+            ImageFileName_jpg = jpgPath + ".jpg";
+            KeyPoint = new List<Point>();
         }
 
 
@@ -47,10 +44,29 @@ namespace Chest_Label_Tool.Lib
         /// <returns></returns>
         public static SaveResultV2 Convert(SaveResultV1 saveobj) 
         {
-            SaveResultV2 Result = new SaveResultV2();
+            SaveResultV2 Result = new SaveResultV2(saveobj.FileName,"");
             Result.SaveTime = DateTime.Now;
-            Result.PlasticTubeSet = saveobj.tube;
-            Result.BifurcationSet = saveobj.bifurcation;
+            Result.KeyPoint = new List<Point>();
+            #region 處理塑膠管
+            foreach (Point p in saveobj.tube) 
+            {
+                Result.KeyPoint.Add(p);
+            }
+            #endregion
+            #region 處理氣管分岔
+            foreach (List<Point> LP in saveobj.bifurcation)
+            {
+                foreach (Point p in LP) 
+                {
+                    Result.KeyPoint.Add(p);
+                }
+            }
+            #endregion
+            //巡迴KetPoint後如果點數沒有等於4+3+3+3=13，就代表點數不完整，則遺棄所有的點
+            if (Result.KeyPoint.Count == 13) 
+            {
+                Result.KeyPoint = new List<Point>();
+            }
             return Result;
         }
         /// <summary>

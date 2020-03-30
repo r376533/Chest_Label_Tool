@@ -215,11 +215,8 @@ namespace Chest_Label_Tool
 
         private void DrawPoint() 
         {
-            
-
-
-            Image<Bgr, Byte> Image = Image_Func.DrawPoint(OriginalImage, point, color);
-            
+            //每次都重劃，即可保證所有點位關係
+            Image<Bgr, Byte> Image = Image_Func.DrawPoint(OriginalImage, point, DrawColor);
             RightNowImage = Image;
             cvImageBox.Image = RightNowImage;
         }
@@ -491,7 +488,15 @@ namespace Chest_Label_Tool
         /// <param name="point"></param>
         private void SetPoint(Point point) 
         {
-            
+            if (LabelLog.PlasticTubeSet.Count < 4)
+            {
+                //如果塑膠管沒到四個點，就先加入點
+                LabelLog.PlasticTubeSet.Add(point);
+            }
+            else 
+            {
+                
+            }
         }
 
         #endregion
