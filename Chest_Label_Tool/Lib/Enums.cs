@@ -23,6 +23,19 @@ namespace Chest_Label_Tool.Lib
             [Description("打點")]
             Point = 2
         }
+
+        public enum KeyPointType 
+        {
+            [Description("塑膠氣管")]
+            PlasticTube = 0,
+            [Description("氣管分岔左緣")]
+            Trachea_Left = 1,
+            [Description("氣管分岔下緣")]
+            Trachea_Buttom = 2,
+            [Description("氣管分岔右緣")]
+            Trachea_Right = 3
+        }
+
         /// <summary>
         /// 抓列舉值的描述
         /// </summary>

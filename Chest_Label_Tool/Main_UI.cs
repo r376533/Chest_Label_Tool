@@ -29,7 +29,8 @@ namespace Chest_Label_Tool
 
         private string ImagePath_Dcm, ImagePath_Jpg;
         private Image<Bgr, Byte> RightNowImage, OriginalImage;
-        private Bgr DrawColor;
+        private Bgr Color_Red;
+        private Bgr Color_Blue;
 
         private ProgramAction RightNowMode;
         private bool IsInAction;
@@ -56,10 +57,9 @@ namespace Chest_Label_Tool
             IsInAction = false;
             IsMouseDown = false;
             #endregion
-            DrawColor = new Bgr(0, 0, 255);
+            Color_Red = new Bgr(0, 0, 255);
+            Color_Blue = new Bgr(255, 0, 0);
         }
-
-
 
         #region ToolBar
         private void tbOpenFile_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace Chest_Label_Tool
                     Image<Bgr,Byte> img = new Image<Bgr, Byte>(targetFilePath);
                     SettingImage(img);
                     LoadingLabelFile(ImagePath_Dcm, ImagePath_Jpg);
-
+                    AdjustmentInit(true);
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace Chest_Label_Tool
                     case ProgramAction.Select:
                         break;
                     case ProgramAction.Point:
-
+                        AddPoint(ImageLocation);
                         break;
                 }
             }
@@ -212,15 +212,6 @@ namespace Chest_Label_Tool
 
         }
 
-
-        private void DrawPoint() 
-        {
-            //每次都重劃，即可保證所有點位關係
-            Image<Bgr, Byte> Image = Image_Func.DrawPoint(OriginalImage, point, DrawColor);
-            RightNowImage = Image;
-            cvImageBox.Image = RightNowImage;
-        }
-
         #endregion
 
         #region 影像微調設定
@@ -228,7 +219,6 @@ namespace Chest_Label_Tool
         private void AdjustmentInit(bool IsEnable) 
         {
             AdjustmentGroup.Enabled = IsEnable;
-
             if (IsEnable) 
             {
                 trbImageBrightness.Value = 0;
@@ -275,21 +265,27 @@ namespace Chest_Label_Tool
             {
                 case 0:
                     RightNowMode = ProgramAction.Zoom;
+                    cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
+                    lblPointInfo.Text = "...";
                     break;
                 case 1:
                     RightNowMode = ProgramAction.Select;
+                    cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
+                    lblPointInfo.Text = "...";
                     break;
                 case 2:
                     RightNowMode = ProgramAction.Point;
+                    cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
+                    lblPointInfo.Text = GetRightNowPointInfo();
                     break;
                 default:
                     RightNowMode = ProgramAction.None;
+                    cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
+                    lblPointInfo.Text = "...";
                     break;
             }
             lblDebug.Text = GetDescription(RightNowMode);
         }
-
-        
 
         private void AdjustmentImage(Image<Bgr,Byte> Image,int Contrast, int Brightness) 
         {
@@ -340,58 +336,86 @@ namespace Chest_Label_Tool
             {
                 LabelLog = new SaveResultV2(DcmImagePath, JPGImagePath);
             }
-            LabelLogReLoad();
+            ImageLabelDataReLoad();
         }
 
         /// <summary>
         /// 將Label的紀錄讀取回去
         /// </summary>
-        private void LabelLogReLoad() 
+        private void ImageLabelDataReLoad() 
         {
-            SaveResultV2 Log = LabelLog;
+            List<Nullable<Point>> KeyPoint = LabelLog.KeyPoints;
             Image<Bgr,Byte> Img = OriginalImage.Copy();
-            if (Log != null) 
+            #region 先畫點
+            foreach (Nullable<Point> Point in KeyPoint) 
             {
-                List<Point> TubeSet = Log.PlasticTubeSet;
-                List<List<Point>> BifurcationSet = Log.BifurcationSet;
-                #region 讀取塑膠氣管
-                if (TubeSet != null && TubeSet.Count > 0)
+                if (Point != null) 
                 {
-                    for (int i = 0; i < TubeSet.Count; i++)
-                    {
-                        Point p = TubeSet[i];
-                        Img = Image_Func.DrawPoint(Img, p, DrawColor);
-                        if (i > 0) 
-                        {
-                            Img = Image_Func.DrawLine(Img,p, TubeSet[i-1],DrawColor);
-                        }
-                    }
+                    Img = Image_Func.DrawPoint(Img, Point.Value, Color_Blue);
                 }
-                #endregion
-
-                #region 讀取肺部分岔
-                if (BifurcationSet != null && BifurcationSet.Count > 0)
-                {
-                    foreach (List<Point> Bifurcation in BifurcationSet)
-                    {
-                        //巡迴氣管分岔，依序是左緣，下緣，右緣
-                        for (int i = 0; i < Bifurcation.Count; i++)
-                        {
-                            //巡迴標記點，用逆時鐘的方式
-                            Point p = Bifurcation[i];
-                            Img = Image_Func.DrawPoint(Img, p, DrawColor);
-                            if (i > 0)
-                            {
-                                Img = Image_Func.DrawLine(Img, p, TubeSet[i - 1], DrawColor);
-                            }
-                        }
-                    }
-                }
-                #endregion
-
             }
+            #endregion
+            #region 畫塑膠氣管
+            for (int i = 1; i < 4; i++)
+            {
+                if (i < KeyPoint.Count && i != 1) 
+                {
+                    if (KeyPoint[i] != null && KeyPoint[i - 1] != null)
+                    {
+                        Img = Image_Func.DrawLine(Img, KeyPoint[i - 1].Value, KeyPoint[i].Value, Color_Red);
+                    }
+                }
+            }
+            #endregion
+            #region 畫肺部分岔
+            for (int i = 4; i < 13; i++)
+            {
+                if (i < KeyPoint.Count && ((i % 3) == 1)  ) 
+                {
+                    if (KeyPoint[i] != null && KeyPoint[i - 1] != null) 
+                    {
+                        Img = Image_Func.DrawLine(Img, KeyPoint[i - 1].Value, KeyPoint[i].Value, Color_Red);
+                    }
+                }
+            }
+            #endregion
             RightNowImage = Img;
             cvImageBox.Image = RightNowImage;
+        }
+
+        /// <summary>
+        /// 將Label的資料讀回到GridView裡面
+        /// </summary>
+        private void GridViewDataReLoad() 
+        {
+            List<Nullable<Point>> KeyPoints = LabelLog.KeyPoints;
+            DataTable dt = ListDataToDt(KeyPoints);
+            dgvKeyPoints.DataSource = dt;
+        }
+
+        /// <summary>
+        /// 把標記點轉成DataTable
+        /// </summary>
+        /// <param name="Points"></param>
+        /// <returns></returns>
+        private DataTable ListDataToDt(List<Nullable<Point>> Points) 
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("意義");
+            dt.Columns.Add("X");
+            dt.Columns.Add("Y");
+            for (int i = 0; i < Points.Count; i++)
+            {
+                if (Points[i] != null) 
+                {
+                    DataRow row = dt.NewRow();
+                    row[0] = SaveResultV2.KeyPointMean[i];
+                    row[1] = Points[i] != null ? Points[i].Value.X.ToString() : "";
+                    row[2] = Points[i] != null ? Points[i].Value.Y.ToString() : "";
+                    dt.Rows.Add(row);
+                }
+            }
+            return dt;
         }
 
         /// <summary>
@@ -401,104 +425,44 @@ namespace Chest_Label_Tool
         {
         
         }
-        #endregion
-
-        #region 處理標記
-        /// <summary>
-        /// 檢查目前標記的點是哪個點
-        /// </summary>
-        /// <returns></returns>
-        private string GetRightNowPointInfo() 
-        {
-            string Result = "";
-            List<Point> TubeSet = LabelLog.PlasticTubeSet;
-            List<List<Point>> BifurcationSet = LabelLog.BifurcationSet;
-            switch (TubeSet.Count) 
-            {
-                case 0:
-                    Result = "塑膠氣管左上";
-                    break;
-                case 1:
-                    Result = "塑膠氣管左下";
-                    break;
-                case 2:
-                    Result = "塑膠氣管右下";
-                    break;
-                case 3:
-                    Result = "塑膠氣管右上";
-                    break;
-            }
-            if (Result == "") 
-            {
-                switch (BifurcationSet.Count) 
-                {
-                    case 0:
-                        Result = "氣管左緣";
-                        switch (BifurcationSet[0].Count) 
-                        {
-                            case 0:
-                                Result += "上點";
-                                break;
-                            case 1:
-                                Result += "中點";
-                                break;
-                            case 2:
-                                Result += "下點";
-                                break;
-                        }
-                        break;
-                    case 1:
-                        Result = "氣管下緣";
-                        switch (BifurcationSet[0].Count)
-                        {
-                            case 0:
-                                Result += "左點";
-                                break;
-                            case 1:
-                                Result += "中點";
-                                break;
-                            case 2:
-                                Result += "右點";
-                                break;
-                        }
-                        break;
-                    case 2:
-                        Result = "氣管右緣";
-                        switch (BifurcationSet[0].Count)
-                        {
-                            case 0:
-                                Result += "下點";
-                                break;
-                            case 1:
-                                Result += "中點";
-                                break;
-                            case 2:
-                                Result += "上點";
-                                break;
-                        }
-                        break;
-                }
-            }
-            return Result;
-        }
 
         /// <summary>
         /// 打點到紀錄中
         /// </summary>
         /// <param name="point"></param>
-        private void SetPoint(Point point) 
+        private void AddPoint(Point point)
         {
-            if (LabelLog.PlasticTubeSet.Count < 4)
+            for (int i = 0; i < 13; i++)
             {
-                //如果塑膠管沒到四個點，就先加入點
-                LabelLog.PlasticTubeSet.Add(point);
+                if (LabelLog.KeyPoints[i] == null)
+                {
+                    LabelLog.KeyPoints[i] = point;
+                    break;
+                }
             }
-            else 
-            {
-                
-            }
+            lblPointInfo.Text = GetRightNowPointInfo();
+            ImageLabelDataReLoad();
+            GridViewDataReLoad();
         }
 
+        /// <summary>
+        /// 取得目前新增點的描述
+        /// </summary>
+        /// <returns></returns>
+        private string GetRightNowPointInfo() 
+        {
+            string Result = "";
+            for (int  i = 0;  i < LabelLog.KeyPoints.Count ;  i++)
+            {
+                if (LabelLog.KeyPoints[i] == null) 
+                {
+                    Result = SaveResultV2.KeyPointMean[i];
+                    break;
+                }
+            }
+            return Result;
+        }
         #endregion
+
     }
 }

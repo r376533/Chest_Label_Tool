@@ -26,13 +26,13 @@ namespace Chest_Label_Tool.Lib
         //該影像在標記時，對比度偏移值
         public double Optimize_Contrast;
         //影像標記點
-        public List<Point> KeyPoint;
+        public List<Nullable<Point>> KeyPoints;
 
         public SaveResultV2(string dcmPath,string jpgPath)
         {
             ImageFileName_dcm = dcmPath + ".dcm";
             ImageFileName_jpg = jpgPath + ".jpg";
-            KeyPoint = new List<Point>();
+            KeyPoints = new List<Nullable<Point>>() { null,null, null, null, null, null, null, null, null, null, null, null, null };
         }
 
 
@@ -46,11 +46,11 @@ namespace Chest_Label_Tool.Lib
         {
             SaveResultV2 Result = new SaveResultV2(saveobj.FileName,"");
             Result.SaveTime = DateTime.Now;
-            Result.KeyPoint = new List<Point>();
+            Result.KeyPoints = new List<Nullable<Point>>();
             #region 處理塑膠管
             foreach (Point p in saveobj.tube) 
             {
-                Result.KeyPoint.Add(p);
+                Result.KeyPoints.Add(p);
             }
             #endregion
             #region 處理氣管分岔
@@ -58,14 +58,14 @@ namespace Chest_Label_Tool.Lib
             {
                 foreach (Point p in LP) 
                 {
-                    Result.KeyPoint.Add(p);
+                    Result.KeyPoints.Add(p);
                 }
             }
             #endregion
             //巡迴KetPoint後如果點數沒有等於4+3+3+3=13，就代表點數不完整，則遺棄所有的點
-            if (Result.KeyPoint.Count == 13) 
+            if (Result.KeyPoints.Count == 13) 
             {
-                Result.KeyPoint = new List<Point>();
+                Result.KeyPoints = new List<Nullable<Point>>();
             }
             return Result;
         }
@@ -96,6 +96,13 @@ namespace Chest_Label_Tool.Lib
         {
             string Jsonstr = JsonConvert.SerializeObject(saveobj);
             Func.WriteText(Path, Jsonstr);
-        } 
+        }
+
+
+        public static string[] KeyPointMean = { "塑膠氣管左上點", "塑膠氣管左下點", "塑膠氣管右下點", "塑膠氣管右上點",
+            "氣管分岔左緣上點", "氣管分岔左緣中點", "氣管分岔左緣下點",
+            "氣管分岔下緣左點", "氣管分岔下緣中點", "氣管分岔下緣右點",
+            "氣管分岔右緣下點", "氣管分岔右緣中點", "氣管分岔右緣上點" };
+
     }
 }
