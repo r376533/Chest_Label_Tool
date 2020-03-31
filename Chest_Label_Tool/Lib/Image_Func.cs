@@ -20,6 +20,22 @@ namespace Chest_Label_Tool.Lib
     public static class Image_Func
     {
         /// <summary>
+        /// 抓出dcm的細節資料
+        /// </summary>
+        /// <param name="DcmPath"></param>
+        public static DcmInfo DcmDetailData(string DcmPath) 
+        {
+            DicomImage dcmimage = new DicomImage(DcmPath);
+            DcmInfo info = new DcmInfo() 
+            {
+                Height = dcmimage.Height,
+                Width = dcmimage.Width,
+                scale = dcmimage.Scale
+            };
+            return info;
+        }
+
+        /// <summary>
         /// 將Dcm檔案轉成jpg
         /// </summary>
         /// <param name="DcmPath">Dcm的檔案路徑</param>
@@ -123,7 +139,7 @@ namespace Chest_Label_Tool.Lib
         {
             Image<Bgr, Byte> img = Image.Copy();
             LineSegment2D line = new LineSegment2D(point1, point2);
-            img.Draw(line, DrawColor, -1);
+            img.Draw(line, DrawColor,10);
             return img;
         }
     }

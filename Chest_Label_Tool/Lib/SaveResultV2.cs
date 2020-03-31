@@ -18,20 +18,19 @@ namespace Chest_Label_Tool.Lib
         //記錄檔生成時間
         public DateTime SaveTime;
         //檔案名稱(DCM)
-        public string ImageFileName_dcm;
-        //檔案名稱(JPG)
-        public string ImageFileName_jpg;
+        public string ImageFileName;
         //該影像在標記時，亮度偏移值
         public double Optimize_Brightness;
         //該影像在標記時，對比度偏移值
         public double Optimize_Contrast;
         //影像標記點
         public List<Nullable<Point>> KeyPoints;
+        //Dcm影像資料
+        public DcmInfo Info;
 
-        public SaveResultV2(string dcmPath,string jpgPath)
+        public SaveResultV2(string FileName)
         {
-            ImageFileName_dcm = dcmPath + ".dcm";
-            ImageFileName_jpg = jpgPath + ".jpg";
+            ImageFileName = FileName;
             KeyPoints = new List<Nullable<Point>>() { null,null, null, null, null, null, null, null, null, null, null, null, null };
         }
 
@@ -44,7 +43,7 @@ namespace Chest_Label_Tool.Lib
         /// <returns></returns>
         public static SaveResultV2 Convert(SaveResultV1 saveobj) 
         {
-            SaveResultV2 Result = new SaveResultV2(saveobj.FileName,"");
+            SaveResultV2 Result = new SaveResultV2(saveobj.FileName);
             Result.SaveTime = DateTime.Now;
             Result.KeyPoints = new List<Nullable<Point>>();
             #region 處理塑膠管
@@ -95,7 +94,8 @@ namespace Chest_Label_Tool.Lib
         public static void SaveFile(SaveResultV2 saveobj, string Path) 
         {
             string Jsonstr = JsonConvert.SerializeObject(saveobj);
-            Func.WriteText(Path, Jsonstr);
+            string prettyJson = JValue.Parse(Jsonstr).ToString(Formatting.Indented);
+            Func.WriteText(Path, prettyJson);
         }
 
 

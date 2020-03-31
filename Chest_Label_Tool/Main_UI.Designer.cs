@@ -50,6 +50,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -67,7 +68,7 @@
             this.lblDebug});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
-            this.ToolBar.Size = new System.Drawing.Size(806, 25);
+            this.ToolBar.Size = new System.Drawing.Size(798, 25);
             this.ToolBar.TabIndex = 0;
             this.ToolBar.Text = "toolStrip1";
             // 
@@ -93,17 +94,19 @@
             // 
             this.tbAboutbtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tbAboutbtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbSettingPage});
+            this.tbSettingPage,
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem});
             this.tbAboutbtn.Image = ((System.Drawing.Image)(resources.GetObject("tbAboutbtn.Image")));
             this.tbAboutbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbAboutbtn.Name = "tbAboutbtn";
             this.tbAboutbtn.Size = new System.Drawing.Size(44, 22);
             this.tbAboutbtn.Text = "關於";
+            this.tbAboutbtn.Visible = false;
             // 
             // tbSettingPage
             // 
             this.tbSettingPage.Name = "tbSettingPage";
-            this.tbSettingPage.Size = new System.Drawing.Size(122, 22);
+            this.tbSettingPage.Size = new System.Drawing.Size(180, 22);
             this.tbSettingPage.Text = "系統設定";
             this.tbSettingPage.Click += new System.EventHandler(this.tbSettingPage_Click);
             // 
@@ -269,17 +272,23 @@
             this.dgvKeyPoints.Size = new System.Drawing.Size(291, 283);
             this.dgvKeyPoints.TabIndex = 5;
             // 
+            // 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem
+            // 
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Name = "這個表單是多於設計現階段用不到隱藏ToolStripMenuItem";
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Text = "這個表單是多於設計，現階段用不到隱藏";
+            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(806, 601);
+            this.ClientSize = new System.Drawing.Size(798, 601);
             this.Controls.Add(this.dgvKeyPoints);
             this.Controls.Add(this.ActionGroup);
             this.Controls.Add(this.AdjustmentGroup);
             this.Controls.Add(this.cvImageBox);
             this.Controls.Add(this.ToolBar);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main_UI";
             this.Text = "胸腔影像標記程式";
             this.Load += new System.EventHandler(this.Main_UI_Load);
@@ -320,6 +329,7 @@
         private System.Windows.Forms.ComboBox cbAction;
         private System.Windows.Forms.ToolStripLabel lblDebug;
         private System.Windows.Forms.DataGridView dgvKeyPoints;
+        private System.Windows.Forms.ToolStripMenuItem 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem;
     }
 }
 

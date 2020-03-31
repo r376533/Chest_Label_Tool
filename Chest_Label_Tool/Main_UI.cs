@@ -28,6 +28,7 @@ namespace Chest_Label_Tool
         private Setting_UI SettingPage;
 
         private string ImagePath_Dcm, ImagePath_Jpg;
+        private DcmInfo RightNowInfo;
         private Image<Bgr, Byte> RightNowImage, OriginalImage;
         private Bgr Color_Red;
         private Bgr Color_Blue;
@@ -77,6 +78,7 @@ namespace Chest_Label_Tool
                     if (!Func.CheckFileExist(targetFilePath))
                     {
                         //檔案不存在
+                        RightNowInfo = Image_Func.DcmDetailData(ImagePath_Dcm);
                         string jpgFilePath = Image_Func.DcmToJPG(ImagePath_Dcm, SettingObj.SavePath);
                         targetFilePath = jpgFilePath;
                     }
@@ -331,12 +333,13 @@ namespace Chest_Label_Tool
             if (!String.IsNullOrEmpty(TargetPath))
             {
                 LabelLog = SaveResultReader.ReadFromFile(TargetPath);
+                ImageLabelDataReLoad();
             }
             else 
             {
-                LabelLog = new SaveResultV2(DcmImagePath, JPGImagePath);
+                LabelLog = new SaveResultV2(DcmImagePath);
             }
-            ImageLabelDataReLoad();
+            LabelLog.Info = RightNowInfo;
         }
 
         /// <summary>
@@ -358,7 +361,7 @@ namespace Chest_Label_Tool
             #region 畫塑膠氣管
             for (int i = 1; i < 4; i++)
             {
-                if (i < KeyPoint.Count && i != 1) 
+                if (KeyPoint[i] != null && KeyPoint[i-1] != null) 
                 {
                     if (KeyPoint[i] != null && KeyPoint[i - 1] != null)
                     {
@@ -368,9 +371,9 @@ namespace Chest_Label_Tool
             }
             #endregion
             #region 畫肺部分岔
-            for (int i = 4; i < 13; i++)
+            for (int i = 5; i < 13; i++)
             {
-                if (i < KeyPoint.Count && ((i % 3) == 1)  ) 
+                if (KeyPoint[i] != null && KeyPoint[i - 1] != null &&  (i % 3) != 1) 
                 {
                     if (KeyPoint[i] != null && KeyPoint[i - 1] != null) 
                     {
@@ -423,8 +426,16 @@ namespace Chest_Label_Tool
         /// </summary>
         private void SaveLabelFile() 
         {
-        
+            LabelLog.Info = RightNowInfo;
+            string dcmfile = ImagePath_Dcm.Substring(0, ImagePath_Dcm.Length - 4) + ".json";
+            string jpgfile = ImagePath_Jpg.Substring(0, ImagePath_Jpg.Length - 4) + ".json";
+            LabelLog.Optimize_Brightness = trbImageBrightness.Value;
+            LabelLog.Optimize_Contrast = trbImageContrast.Value;
+            SaveResultV2.SaveFile(LabelLog, dcmfile);
+            SaveResultV2.SaveFile(LabelLog, jpgfile);
         }
+
+        
 
         /// <summary>
         /// 打點到紀錄中
@@ -443,6 +454,10 @@ namespace Chest_Label_Tool
             lblPointInfo.Text = GetRightNowPointInfo();
             ImageLabelDataReLoad();
             GridViewDataReLoad();
+            if (SettingObj.AutoSave) 
+            {
+                SaveLabelFile();
+            }
         }
 
         /// <summary>

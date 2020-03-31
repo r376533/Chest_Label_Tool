@@ -49,10 +49,10 @@ namespace Chest_Label_Tool
             ST_TP_NOR_txtSavePath.Text = SettingObj.SavePath;
             cbAutoSave.Checked = SettingObj.AutoSave;
             //影像設定
-            npPlasticTubeCount.Value = SettingObj.PlasticTubeCount;
-            npTracheaLeftCount.Value = SettingObj.TracheaLeftCount;
-            npTracheaButtomCount.Value = SettingObj.TracheaButtomCount;
-            npTracheaRightCount.Value = SettingObj.TracheaRightCount;
+            //npPlasticTubeCount.Value = SettingObj.PlasticTubeCount;
+            //npTracheaLeftCount.Value = SettingObj.TracheaLeftCount;
+            //npTracheaButtomCount.Value = SettingObj.TracheaButtomCount;
+            //npTracheaRightCount.Value = SettingObj.TracheaRightCount;
             cbAutoChangeType.Checked = SettingObj.AutoChangeType;
         }
 
@@ -63,10 +63,10 @@ namespace Chest_Label_Tool
             SettingObj.SavePath = ST_TP_NOR_txtSavePath.Text;
             SettingObj.AutoSave = cbAutoSave.Checked;
             //影像設定
-            SettingObj.PlasticTubeCount = (int)npPlasticTubeCount.Value;
-            SettingObj.TracheaLeftCount = (int)npTracheaLeftCount.Value;
-            SettingObj.TracheaButtomCount = (int)npTracheaButtomCount.Value;
-            SettingObj.TracheaRightCount = (int)npTracheaRightCount.Value;
+            //SettingObj.PlasticTubeCount = (int)npPlasticTubeCount.Value;
+            //SettingObj.TracheaLeftCount = (int)npTracheaLeftCount.Value;
+            //SettingObj.TracheaButtomCount = (int)npTracheaButtomCount.Value;
+            //SettingObj.TracheaRightCount = (int)npTracheaRightCount.Value;
             SettingObj.AutoChangeType = cbAutoChangeType.Checked;
         }
     }

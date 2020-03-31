@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\DcmInfo.cs" />
     <Compile Include="Lib\Func.cs" />
     <Compile Include="Lib\Image_Func.cs" />
     <Compile Include="Lib\SaveResultReader.cs" />

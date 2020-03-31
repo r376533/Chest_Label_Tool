@@ -47,6 +47,7 @@
             this.npPlasticTubeCount = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.ST_TabControl.SuspendLayout();
             this.ST_TP_Normal.SuspendLayout();
             this.ST_TP_Image.SuspendLayout();
@@ -55,13 +56,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.npTracheaLeftCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.npTracheaButtomCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.npPlasticTubeCount)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ST_TabControl
             // 
             this.ST_TabControl.Controls.Add(this.ST_TP_Normal);
             this.ST_TabControl.Controls.Add(this.ST_TP_Image);
-            this.ST_TabControl.Location = new System.Drawing.Point(12, 12);
+            this.ST_TabControl.Location = new System.Drawing.Point(3, 3);
             this.ST_TabControl.Name = "ST_TabControl";
             this.ST_TabControl.SelectedIndex = 0;
             this.ST_TabControl.Size = new System.Drawing.Size(293, 426);
@@ -239,13 +241,22 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "氣管分岔下緣點數";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.ST_TabControl);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(301, 434);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
             // Setting_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(317, 450);
-            this.Controls.Add(this.ST_TabControl);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.ClientSize = new System.Drawing.Size(301, 434);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "Setting_UI";
             this.Text = "系統設定";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Setting_UI_FormClosing);
@@ -261,6 +272,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.npTracheaLeftCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.npTracheaButtomCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.npPlasticTubeCount)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -286,5 +298,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox cbAutoChangeType;
         private System.Windows.Forms.CheckBox cbAutoSave;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

@@ -24,10 +24,6 @@ namespace Chest_Label_Tool.Lib
         #endregion
 
         #region 影像設定
-        public int PlasticTubeCount;
-        public int TracheaLeftCount;
-        public int TracheaButtomCount;
-        public int TracheaRightCount;
         public bool AutoChangeType;
         #endregion
 
@@ -59,10 +55,6 @@ namespace Chest_Label_Tool.Lib
             SavePath = Environment.CurrentDirectory + "\\" + "IMG" ;
             AutoSave = true;
             //影像相關
-            PlasticTubeCount = 4;
-            TracheaLeftCount = 3;
-            TracheaButtomCount = 3;
-            TracheaRightCount = 3;
             AutoChangeType = true;
         }
 
@@ -77,6 +69,8 @@ namespace Chest_Label_Tool.Lib
                 //不是空檔案
                 Setting obj = JsonConvert.DeserializeObject<Setting>(jsonstr);
                 SavePath = obj.SavePath;
+                AutoSave = obj.AutoSave;
+                AutoChangeType = obj.AutoChangeType;
             }
             else 
             {
@@ -90,7 +84,8 @@ namespace Chest_Label_Tool.Lib
         public void Save_Setting() 
         {
             string jsonstr = JsonConvert.SerializeObject(this);
-            Func.WriteText(SettingFileName, jsonstr,IsOverWrite:true);
+            string prettyJson = JValue.Parse(jsonstr).ToString(Formatting.Indented);
+            Func.WriteText(SettingFileName, prettyJson, IsOverWrite:true);
         }
     }
 
