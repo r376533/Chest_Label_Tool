@@ -39,6 +39,8 @@ namespace Chest_Label_Tool
 
         private SaveResultV2 LabelLog;
 
+        private SaveResultConvertPage saveResultConvertPage;
+
         public Main_UI()
         {
             InitializeComponent();
@@ -53,6 +55,15 @@ namespace Chest_Label_Tool
                 SettingPage.Hide();
             }
             #endregion
+
+            #region 轉換PAGE
+            if (saveResultConvertPage == null)
+            {
+                saveResultConvertPage = new SaveResultConvertPage(SettingObj);
+                saveResultConvertPage.Hide();
+            }
+            #endregion
+
             #region ActionGroup
             RightNowMode = ProgramAction.None;
             IsInAction = false;
@@ -97,6 +108,12 @@ namespace Chest_Label_Tool
         {
             //打開系統設定UI
             SettingPage.Show();
+        }
+
+        private void tbBatchConvertResult_Click(object sender, EventArgs e)
+        {
+            saveResultConvertPage.Show();
+            saveResultConvertPage.Focus();
         }
         #endregion
 
@@ -453,6 +470,8 @@ namespace Chest_Label_Tool
                 SaveLabelFile();
             }
         }
+
+        
 
         /// <summary>
         /// 取得目前新增點的描述

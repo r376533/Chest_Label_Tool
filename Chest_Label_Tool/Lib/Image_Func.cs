@@ -26,12 +26,21 @@ namespace Chest_Label_Tool.Lib
         public static DcmInfo DcmDetailData(string DcmPath) 
         {
             DicomImage dcmimage = new DicomImage(DcmPath);
+            string Spacing = "";
+            try
+            {
+                Spacing = dcmimage.Dataset.GetValue<string>(DicomTag.PixelSpacing, 0);
+            }
+            catch 
+            {
+                Spacing = "0.139";
+            }
             DcmInfo info = new DcmInfo() 
             {
                 Height = dcmimage.Height,
                 Width = dcmimage.Width,
-                scale = dcmimage.Scale
-            };
+                scale = Convert.ToDouble(Spacing)
+        };
             return info;
         }
 

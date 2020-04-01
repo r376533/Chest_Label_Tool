@@ -152,6 +152,20 @@ namespace Chest_Label_Tool.Lib
             return NewP;
         }
 
+
+
+
+        /// <summary>
+        /// 檢查是否是第一版本
+        /// </summary>
+        /// <param name="Jsonstr"></param>
+        /// <returns></returns>
+        public static bool IsVersion1(string Jsonstr)
+        {
+            bool Result = false;
+            Result = Jsonstr.Contains("tube");
+            return Result;
+        }
     }
 
 

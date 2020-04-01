@@ -33,6 +33,7 @@ namespace Chest_Label_Tool.Lib
             ImageFileName = FileName;
             KeyPoints = new List<Nullable<Point>>() { null,null, null, null, null, null, null, null, null, null, null, null, null };
             ResultVersion = "2";
+            SaveTime = DateTime.Now;
         }
 
 

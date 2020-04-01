@@ -129,5 +129,33 @@ namespace Chest_Label_Tool.Lib
             }
             return Result;
         }
+
+        /// <summary>
+        /// 在某個資料夾下搜尋檔案
+        /// </summary>
+        /// <param name="DirPath">資料夾絕對路徑</param>
+        /// <param name="FilePattan">檔案的規律(Ex:*.jpg)</param>
+        /// <param name="DeepSearch">是否遞迴搜尋</param>
+        /// <returns></returns>
+        public static List<string> GetFilesFromDir(string DirPath,string FilePattan, bool DeepSearch=true) 
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(DirPath);
+            FileInfo[] FileInfoArray;
+            if (DeepSearch)
+            {
+                FileInfoArray = directoryInfo.GetFiles(FilePattan, SearchOption.AllDirectories);
+            }
+            else 
+            {
+                FileInfoArray = directoryInfo.GetFiles(FilePattan, SearchOption.TopDirectoryOnly);
+            }
+            List<string> Paths = new List<string>();
+            foreach (FileInfo info in FileInfoArray) 
+            {
+                string path = info.FullName;
+                Paths.Add(path);
+            }
+            return Paths;
+        }
     }
 }

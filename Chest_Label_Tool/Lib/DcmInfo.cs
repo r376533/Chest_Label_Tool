@@ -19,7 +19,7 @@ namespace Chest_Label_Tool.Lib
         /// <summary>
         /// 影像縮放比例
         /// </summary>
-        public double scale = 1.0;
+        public double scale { get; set; }
 
     }
 }

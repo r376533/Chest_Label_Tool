@@ -33,6 +33,8 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.tbFilebtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tbBatchConvertResult = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,8 +53,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.批次轉換紀錄檔ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -92,6 +92,24 @@
             this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbBatchConvertResult});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 22);
+            this.toolStripDropDownButton1.Text = "批次功能";
+            // 
+            // tbBatchConvertResult
+            // 
+            this.tbBatchConvertResult.Name = "tbBatchConvertResult";
+            this.tbBatchConvertResult.Size = new System.Drawing.Size(180, 22);
+            this.tbBatchConvertResult.Text = "批次轉換紀錄檔";
+            this.tbBatchConvertResult.Click += new System.EventHandler(this.tbBatchConvertResult_Click);
             // 
             // tbAboutbtn
             // 
@@ -281,23 +299,6 @@
             this.dgvKeyPoints.Size = new System.Drawing.Size(291, 283);
             this.dgvKeyPoints.TabIndex = 5;
             // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.批次轉換紀錄檔ToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 22);
-            this.toolStripDropDownButton1.Text = "批次功能";
-            // 
-            // 批次轉換紀錄檔ToolStripMenuItem
-            // 
-            this.批次轉換紀錄檔ToolStripMenuItem.Name = "批次轉換紀錄檔ToolStripMenuItem";
-            this.批次轉換紀錄檔ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.批次轉換紀錄檔ToolStripMenuItem.Text = "批次轉換紀錄檔";
-            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -351,7 +352,7 @@
         private System.Windows.Forms.DataGridView dgvKeyPoints;
         private System.Windows.Forms.ToolStripMenuItem 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem 批次轉換紀錄檔ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tbBatchConvertResult;
     }
 }
 
