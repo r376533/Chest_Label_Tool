@@ -75,10 +75,10 @@ namespace Chest_Label_Tool
                     string targetFileName = dcmFileName + ".jpg";
                     //檢查存檔路徑是否跟讀取影像有相同的影像，如果有則直接載入影像，如果沒有則轉檔載入
                     string targetFilePath = Path.Combine(SettingObj.SavePath, targetFileName);
+                    RightNowInfo = Image_Func.DcmDetailData(ImagePath_Dcm);
                     if (!Func.CheckFileExist(targetFilePath))
                     {
                         //檔案不存在
-                        RightNowInfo = Image_Func.DcmDetailData(ImagePath_Dcm);
                         string jpgFilePath = Image_Func.DcmToJPG(ImagePath_Dcm, SettingObj.SavePath);
                         targetFilePath = jpgFilePath;
                     }
@@ -88,6 +88,7 @@ namespace Chest_Label_Tool
                     SettingImage(img);
                     LoadingLabelFile(ImagePath_Dcm, ImagePath_Jpg);
                     AdjustmentInit(true);
+                    ImageProc();
                 }
             }
         }
@@ -211,7 +212,6 @@ namespace Chest_Label_Tool
             AdjustmentGroup.Enabled = true;
             ActionGroup.Enabled = true;
             cbAction.SelectedIndex = 0;
-
         }
 
         #endregion
@@ -291,9 +291,7 @@ namespace Chest_Label_Tool
 
         private void AdjustmentImage(Image<Bgr,Byte> Image,int Contrast, int Brightness) 
         {
-            Image<Bgr, Byte> after = Image_Func.BrightnessAndContrast(Image, Brightness, Contrast);
-            RightNowImage = after;
-            cvImageBox.Image = after;
+            ImageProc();
         }
         #endregion
 
@@ -332,23 +330,20 @@ namespace Chest_Label_Tool
 
             if (!String.IsNullOrEmpty(TargetPath))
             {
-                LabelLog = SaveResultReader.ReadFromFile(TargetPath);
-                ImageLabelDataReLoad();
+                LabelLog = SaveResultReader.ReadFromFile(TargetPath,RightNowInfo);
             }
             else 
             {
                 LabelLog = new SaveResultV2(DcmImagePath);
             }
-            LabelLog.Info = RightNowInfo;
         }
 
         /// <summary>
         /// 將Label的紀錄讀取回去
         /// </summary>
-        private void ImageLabelDataReLoad() 
+        private Image<Bgr, Byte> ImageLabelDataReLoad(Image<Bgr, Byte> Source,List<Nullable<Point>> KeyPoint) 
         {
-            List<Nullable<Point>> KeyPoint = LabelLog.KeyPoints;
-            Image<Bgr,Byte> Img = OriginalImage.Copy();
+            Image<Bgr,Byte> Img = Source.Copy();
             #region 先畫點
             foreach (Nullable<Point> Point in KeyPoint) 
             {
@@ -382,8 +377,7 @@ namespace Chest_Label_Tool
                 }
             }
             #endregion
-            RightNowImage = Img;
-            cvImageBox.Image = RightNowImage;
+            return Img;
         }
 
         /// <summary>
@@ -452,7 +446,7 @@ namespace Chest_Label_Tool
                 }
             }
             lblPointInfo.Text = GetRightNowPointInfo();
-            ImageLabelDataReLoad();
+            ImageProc();
             GridViewDataReLoad();
             if (SettingObj.AutoSave) 
             {
@@ -479,5 +473,22 @@ namespace Chest_Label_Tool
         }
         #endregion
 
+
+        /// <summary>
+        /// 要改變圖片就用這個
+        /// </summary>
+        private void ImageProc() 
+        {
+            int B_Level = trbImageBrightness.Value;
+            int C_Level = trbImageContrast.Value;
+
+            List<Nullable<Point>> KeyPoints = LabelLog.KeyPoints;
+            Image<Bgr, Byte> Img = OriginalImage.Copy();
+            //調亮度跟對比度
+            Img = Image_Func.BrightnessAndContrast(Img, B_Level, C_Level);
+            //畫點劃線
+            Img = ImageLabelDataReLoad(Img, KeyPoints);
+            cvImageBox.Image = Img;
+        }
     }
 }

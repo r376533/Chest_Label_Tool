@@ -35,6 +35,7 @@
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblDebug = new System.Windows.Forms.ToolStripLabel();
             this.cvImageBox = new Emgu.CV.UI.ImageBox();
             this.AdjustmentGroup = new System.Windows.Forms.GroupBox();
@@ -50,7 +51,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
-            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.批次轉換紀錄檔ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -64,6 +66,7 @@
             // 
             this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbFilebtn,
+            this.toolStripDropDownButton1,
             this.tbAboutbtn,
             this.lblDebug});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
@@ -86,7 +89,7 @@
             // tbOpenFile
             // 
             this.tbOpenFile.Name = "tbOpenFile";
-            this.tbOpenFile.Size = new System.Drawing.Size(122, 22);
+            this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
             // 
@@ -106,9 +109,15 @@
             // tbSettingPage
             // 
             this.tbSettingPage.Name = "tbSettingPage";
-            this.tbSettingPage.Size = new System.Drawing.Size(180, 22);
+            this.tbSettingPage.Size = new System.Drawing.Size(290, 22);
             this.tbSettingPage.Text = "系統設定";
             this.tbSettingPage.Click += new System.EventHandler(this.tbSettingPage_Click);
+            // 
+            // 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem
+            // 
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Name = "這個表單是多於設計現階段用不到隱藏ToolStripMenuItem";
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Text = "這個表單是多於設計，現階段用不到隱藏";
             // 
             // lblDebug
             // 
@@ -272,11 +281,22 @@
             this.dgvKeyPoints.Size = new System.Drawing.Size(291, 283);
             this.dgvKeyPoints.TabIndex = 5;
             // 
-            // 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem
+            // toolStripDropDownButton1
             // 
-            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Name = "這個表單是多於設計現階段用不到隱藏ToolStripMenuItem";
-            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
-            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Text = "這個表單是多於設計，現階段用不到隱藏";
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.批次轉換紀錄檔ToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 22);
+            this.toolStripDropDownButton1.Text = "批次功能";
+            // 
+            // 批次轉換紀錄檔ToolStripMenuItem
+            // 
+            this.批次轉換紀錄檔ToolStripMenuItem.Name = "批次轉換紀錄檔ToolStripMenuItem";
+            this.批次轉換紀錄檔ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.批次轉換紀錄檔ToolStripMenuItem.Text = "批次轉換紀錄檔";
             // 
             // Main_UI
             // 
@@ -330,6 +350,8 @@
         private System.Windows.Forms.ToolStripLabel lblDebug;
         private System.Windows.Forms.DataGridView dgvKeyPoints;
         private System.Windows.Forms.ToolStripMenuItem 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem 批次轉換紀錄檔ToolStripMenuItem;
     }
 }
 

@@ -106,6 +106,52 @@ namespace Chest_Label_Tool.Lib
             }
         }
 
+        /// <summary>
+        /// V1的坐標軸轉換
+        /// </summary>
+        /// <param name="Width"></param>
+        /// <param name="Height"></param>
+        /// <param name="Ps"></param>
+        /// <returns></returns>
+        public static List<Nullable<Point>> PointConvert(int Width, int Height, List<Point> Ps)
+        {
+            List<Nullable<Point>> NewPoint = new List<Nullable<Point>>();
+            for (int i = 0; i < Ps.Count; i++)
+            {
+                if (Ps[i] != null)
+                {
+                    NewPoint.Add(Real_PointConvert(Width, Height, Ps[i]));
+                }
+                else 
+                {
+                    NewPoint.Add(null);
+                }
+            }
+            return NewPoint;
+
+        }
+        /// <summary>
+        /// V1的坐標軸轉換
+        /// </summary>
+        /// <param name="Width"></param>
+        /// <param name="Height"></param>
+        /// <param name="Ps"></param>
+        /// <returns></returns>
+        public static Point Real_PointConvert(int Width, int Height,Point P) 
+        {
+            int DeltaX = 0, DeltaY = 0;
+            if (Width >= 2500) 
+            {
+                DeltaX = (Width - 2500) / 2;
+            }
+            if (Height >= 2500)
+            {
+                DeltaY = (Height - 2500) / 2;
+            }
+            Point NewP = new Point(P.X + DeltaX, P.Y + DeltaY);
+            return NewP;
+        }
+
     }
 
 

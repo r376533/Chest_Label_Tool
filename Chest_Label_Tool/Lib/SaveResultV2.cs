@@ -14,7 +14,7 @@ namespace Chest_Label_Tool.Lib
     public class SaveResultV2
     {
         //記錄檔案版本
-        public string ResultVersion = "2";
+        public string ResultVersion;
         //記錄檔生成時間
         public DateTime SaveTime;
         //檔案名稱(DCM)
@@ -32,6 +32,7 @@ namespace Chest_Label_Tool.Lib
         {
             ImageFileName = FileName;
             KeyPoints = new List<Nullable<Point>>() { null,null, null, null, null, null, null, null, null, null, null, null, null };
+            ResultVersion = "2";
         }
 
 
@@ -41,28 +42,30 @@ namespace Chest_Label_Tool.Lib
         /// </summary>
         /// <param name="saveobj"></param>
         /// <returns></returns>
-        public static SaveResultV2 Convert(SaveResultV1 saveobj) 
+        public static SaveResultV2 Convert(SaveResultV1 saveobj,DcmInfo info) 
         {
             SaveResultV2 Result = new SaveResultV2(saveobj.FileName);
             Result.SaveTime = DateTime.Now;
             Result.KeyPoints = new List<Nullable<Point>>();
             #region 處理塑膠管
-            foreach (Point p in saveobj.tube) 
-            {
-                Result.KeyPoints.Add(p);
-            }
+            Result.KeyPoints.AddRange(SaveResultV1.PointConvert(info.Width, info.Height, saveobj.tube));
+            //foreach (Point p in saveobj.tube) 
+            //{
+            //    Result.KeyPoints.Add(p);
+            //}
             #endregion
             #region 處理氣管分岔
             foreach (List<Point> LP in saveobj.bifurcation)
             {
-                foreach (Point p in LP) 
-                {
-                    Result.KeyPoints.Add(p);
-                }
+                Result.KeyPoints.AddRange(SaveResultV1.PointConvert(info.Width, info.Height, LP));
+                //foreach (Point p in LP) 
+                //{
+                //    Result.KeyPoints.Add(p);
+                //}
             }
             #endregion
             //巡迴KetPoint後如果點數沒有等於4+3+3+3=13，就代表點數不完整，則遺棄所有的點
-            if (Result.KeyPoints.Count == 13) 
+            if (Result.KeyPoints.Count != 13) 
             {
                 Result.KeyPoints = new List<Nullable<Point>>();
             }
@@ -96,6 +99,18 @@ namespace Chest_Label_Tool.Lib
             string Jsonstr = JsonConvert.SerializeObject(saveobj);
             string prettyJson = JValue.Parse(Jsonstr).ToString(Formatting.Indented);
             Func.WriteText(Path, prettyJson);
+        }
+
+        /// <summary>
+        /// 檢查是否是第二版本
+        /// </summary>
+        /// <param name="Jsonstr"></param>
+        /// <returns></returns>
+        public static bool IsVersion2(string Jsonstr) 
+        {
+            bool Result = false;
+            Result = Jsonstr.Contains("ResultVersion");
+            return Result;
         }
 
 

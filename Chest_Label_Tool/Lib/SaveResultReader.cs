@@ -12,12 +12,12 @@ namespace Chest_Label_Tool.Lib
 {
     public static class SaveResultReader
     {
-        public static SaveResultV2 ReadFromFile(string FilePath) 
+        public static SaveResultV2 ReadFromFile(string FilePath,DcmInfo info) 
         {
             if (Func.CheckFileExist(FilePath))
             {
                 string JsonStr = Func.ReadText(FilePath);
-                return ReadFromString(JsonStr);
+                return ReadFromString(JsonStr, info);
             }
             else 
             {
@@ -25,13 +25,17 @@ namespace Chest_Label_Tool.Lib
             }
         }
 
-        public static SaveResultV2 ReadFromString(string JsonStr) 
+        public static SaveResultV2 ReadFromString(string JsonStr, DcmInfo info) 
         {
-            SaveResultV2 item = JsonConvert.DeserializeObject<SaveResultV2>(JsonStr);
-            if (item.KeyPoints == null || item.KeyPoints.Count == 0 ) 
+            SaveResultV2 item;
+            if (SaveResultV2.IsVersion2(JsonStr))
+            {
+                item = JsonConvert.DeserializeObject<SaveResultV2>(JsonStr);
+            }
+            else 
             {
                 SaveResultV1 item_old = SaveResultV1.ConvertSaveFile(JsonStr);
-                item = SaveResultV2.Convert(item_old);
+                item = SaveResultV2.Convert(item_old,info);
             }
             return item;
         }
