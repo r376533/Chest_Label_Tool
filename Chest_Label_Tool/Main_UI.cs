@@ -40,6 +40,7 @@ namespace Chest_Label_Tool
         private SaveResultV2 LabelLog;
 
         private SaveResultConvertPage saveResultConvertPage;
+        private chiYaOutPage chiYaOutPage;
 
         public Main_UI()
         {
@@ -61,6 +62,11 @@ namespace Chest_Label_Tool
             {
                 saveResultConvertPage = new SaveResultConvertPage(SettingObj);
                 saveResultConvertPage.Hide();
+            }
+            if (chiYaOutPage == null) 
+            {
+                chiYaOutPage = new chiYaOutPage();
+                chiYaOutPage.Hide();
             }
             #endregion
 
@@ -471,8 +477,6 @@ namespace Chest_Label_Tool
             }
         }
 
-        
-
         /// <summary>
         /// 取得目前新增點的描述
         /// </summary>
@@ -508,6 +512,12 @@ namespace Chest_Label_Tool
             //畫點劃線
             Img = ImageLabelDataReLoad(Img, KeyPoints);
             cvImageBox.Image = Img;
+        }
+
+        private void 奇業轉出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chiYaOutPage.Show();
+            chiYaOutPage.Focus();
         }
     }
 }

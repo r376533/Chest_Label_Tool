@@ -53,6 +53,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
+            this.奇業轉出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -89,7 +90,7 @@
             // tbOpenFile
             // 
             this.tbOpenFile.Name = "tbOpenFile";
-            this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
+            this.tbOpenFile.Size = new System.Drawing.Size(122, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
             // 
@@ -97,7 +98,8 @@
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbBatchConvertResult});
+            this.tbBatchConvertResult,
+            this.奇業轉出ToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -299,6 +301,13 @@
             this.dgvKeyPoints.Size = new System.Drawing.Size(291, 283);
             this.dgvKeyPoints.TabIndex = 5;
             // 
+            // 奇業轉出ToolStripMenuItem
+            // 
+            this.奇業轉出ToolStripMenuItem.Name = "奇業轉出ToolStripMenuItem";
+            this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.奇業轉出ToolStripMenuItem.Text = "奇業轉出";
+            this.奇業轉出ToolStripMenuItem.Click += new System.EventHandler(this.奇業轉出ToolStripMenuItem_Click);
+            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -353,6 +362,7 @@
         private System.Windows.Forms.ToolStripMenuItem 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem tbBatchConvertResult;
+        private System.Windows.Forms.ToolStripMenuItem 奇業轉出ToolStripMenuItem;
     }
 }
 

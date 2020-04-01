@@ -103,6 +103,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="chiYaOutPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="chiYaOutPage.Designer.cs">
+      <DependentUpon>chiYaOutPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\DcmInfo.cs" />
     <Compile Include="Lib\Func.cs" />
     <Compile Include="Lib\Image_Func.cs" />
@@ -131,6 +137,9 @@
     <Compile Include="Setting_UI.Designer.cs">
       <DependentUpon>Setting_UI.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="chiYaOutPage.resx">
+      <DependentUpon>chiYaOutPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main_UI.resx">
       <DependentUpon>Main_UI.cs</DependentUpon>
     </EmbeddedResource>
