@@ -72,7 +72,7 @@
             this.lblDebug});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
-            this.ToolBar.Size = new System.Drawing.Size(798, 25);
+            this.ToolBar.Size = new System.Drawing.Size(854, 25);
             this.ToolBar.TabIndex = 0;
             this.ToolBar.Text = "toolStrip1";
             // 
@@ -155,10 +155,10 @@
             // cvImageBox
             // 
             this.cvImageBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
+            this.cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
             this.cvImageBox.Location = new System.Drawing.Point(12, 28);
             this.cvImageBox.Name = "cvImageBox";
-            this.cvImageBox.Size = new System.Drawing.Size(475, 561);
+            this.cvImageBox.Size = new System.Drawing.Size(523, 626);
             this.cvImageBox.TabIndex = 2;
             this.cvImageBox.TabStop = false;
             this.cvImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseClick);
@@ -177,7 +177,7 @@
             this.AdjustmentGroup.Controls.Add(this.label2);
             this.AdjustmentGroup.Controls.Add(this.label1);
             this.AdjustmentGroup.Enabled = false;
-            this.AdjustmentGroup.Location = new System.Drawing.Point(493, 28);
+            this.AdjustmentGroup.Location = new System.Drawing.Point(541, 28);
             this.AdjustmentGroup.Name = "AdjustmentGroup";
             this.AdjustmentGroup.Size = new System.Drawing.Size(301, 149);
             this.AdjustmentGroup.TabIndex = 3;
@@ -251,9 +251,9 @@
             this.ActionGroup.Controls.Add(this.label4);
             this.ActionGroup.Controls.Add(this.label3);
             this.ActionGroup.Enabled = false;
-            this.ActionGroup.Location = new System.Drawing.Point(494, 184);
+            this.ActionGroup.Location = new System.Drawing.Point(541, 183);
             this.ActionGroup.Name = "ActionGroup";
-            this.ActionGroup.Size = new System.Drawing.Size(294, 115);
+            this.ActionGroup.Size = new System.Drawing.Size(301, 115);
             this.ActionGroup.TabIndex = 4;
             this.ActionGroup.TabStop = false;
             this.ActionGroup.Text = "行為";
@@ -301,18 +301,21 @@
             // 
             // dgvKeyPoints
             // 
+            this.dgvKeyPoints.AllowUserToAddRows = false;
             this.dgvKeyPoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKeyPoints.Location = new System.Drawing.Point(494, 306);
+            this.dgvKeyPoints.Location = new System.Drawing.Point(541, 304);
             this.dgvKeyPoints.Name = "dgvKeyPoints";
+            this.dgvKeyPoints.ReadOnly = true;
             this.dgvKeyPoints.RowTemplate.Height = 24;
-            this.dgvKeyPoints.Size = new System.Drawing.Size(291, 283);
+            this.dgvKeyPoints.Size = new System.Drawing.Size(301, 350);
             this.dgvKeyPoints.TabIndex = 5;
+            this.dgvKeyPoints.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvKeyPoints_UserDeletingRow);
             // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 601);
+            this.ClientSize = new System.Drawing.Size(854, 666);
             this.Controls.Add(this.dgvKeyPoints);
             this.Controls.Add(this.ActionGroup);
             this.Controls.Add(this.AdjustmentGroup);

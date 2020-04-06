@@ -125,6 +125,12 @@ namespace Chest_Label_Tool
             saveResultConvertPage.Show();
             saveResultConvertPage.Focus();
         }
+
+        private void 奇業轉出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chiYaOutPage.Show();
+            chiYaOutPage.Focus();
+        }
         #endregion
 
         #region cvImageBox
@@ -320,6 +326,25 @@ namespace Chest_Label_Tool
         {
             ImageProc();
         }
+
+        /// <summary>
+        /// 要改變圖片就用這個
+        /// </summary>
+        private void ImageProc()
+        {
+            int B_Level = trbImageBrightness.Value;
+            int C_Level = trbImageContrast.Value;
+
+            List<Nullable<Point>> KeyPoints = LabelLog.KeyPoints;
+            Image<Bgr, Byte> Img = OriginalImage.Copy();
+            //調亮度跟對比度
+            Img = Image_Func.BrightnessAndContrast(Img, B_Level, C_Level);
+            //畫點劃線
+            Img = ImageLabelDataReLoad(Img, KeyPoints);
+            cvImageBox.Image = Img;
+            //載入資料表
+            GridViewDataReLoad();
+        }
         #endregion
 
         #region 標籤記錄檔
@@ -364,7 +389,6 @@ namespace Chest_Label_Tool
                 LabelLog = new SaveResultV2(DcmImagePath);
             }
         }
-
         /// <summary>
         /// 將Label的紀錄讀取回去
         /// </summary>
@@ -406,42 +430,6 @@ namespace Chest_Label_Tool
             #endregion
             return Img;
         }
-
-        /// <summary>
-        /// 將Label的資料讀回到GridView裡面
-        /// </summary>
-        private void GridViewDataReLoad() 
-        {
-            List<Nullable<Point>> KeyPoints = LabelLog.KeyPoints;
-            DataTable dt = ListDataToDt(KeyPoints);
-            dgvKeyPoints.DataSource = dt;
-        }
-
-        /// <summary>
-        /// 把標記點轉成DataTable
-        /// </summary>
-        /// <param name="Points"></param>
-        /// <returns></returns>
-        private DataTable ListDataToDt(List<Nullable<Point>> Points) 
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("意義");
-            dt.Columns.Add("X");
-            dt.Columns.Add("Y");
-            for (int i = 0; i < Points.Count; i++)
-            {
-                if (Points[i] != null) 
-                {
-                    DataRow row = dt.NewRow();
-                    row[0] = SaveResultV2.KeyPointMean[i];
-                    row[1] = Points[i] != null ? Points[i].Value.X.ToString() : "";
-                    row[2] = Points[i] != null ? Points[i].Value.Y.ToString() : "";
-                    dt.Rows.Add(row);
-                }
-            }
-            return dt;
-        }
-
         /// <summary>
         /// 存入目前的紀錄檔
         /// </summary>
@@ -455,9 +443,6 @@ namespace Chest_Label_Tool
             SaveResultV2.SaveFile(LabelLog, dcmfile);
             SaveResultV2.SaveFile(LabelLog, jpgfile);
         }
-
-        
-
         /// <summary>
         /// 打點到紀錄中
         /// </summary>
@@ -480,7 +465,6 @@ namespace Chest_Label_Tool
                 SaveLabelFile();
             }
         }
-
         /// <summary>
         /// 取得目前新增點的描述
         /// </summary>
@@ -508,27 +492,70 @@ namespace Chest_Label_Tool
         }
         #endregion
 
+        #region 右下資料表
         /// <summary>
-        /// 要改變圖片就用這個
+        /// 將Label的資料讀回到GridView裡面
         /// </summary>
-        private void ImageProc() 
+        private void GridViewDataReLoad()
         {
-            int B_Level = trbImageBrightness.Value;
-            int C_Level = trbImageContrast.Value;
-
             List<Nullable<Point>> KeyPoints = LabelLog.KeyPoints;
-            Image<Bgr, Byte> Img = OriginalImage.Copy();
-            //調亮度跟對比度
-            Img = Image_Func.BrightnessAndContrast(Img, B_Level, C_Level);
-            //畫點劃線
-            Img = ImageLabelDataReLoad(Img, KeyPoints);
-            cvImageBox.Image = Img;
+            DataTable dt = ListDataToDt(KeyPoints);
+            dgvKeyPoints.DataSource = dt;
         }
 
-        private void 奇業轉出ToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 把標記點轉成DataTable
+        /// </summary>
+        /// <param name="Points"></param>
+        /// <returns></returns>
+        private DataTable ListDataToDt(List<Nullable<Point>> Points)
         {
-            chiYaOutPage.Show();
-            chiYaOutPage.Focus();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("意義");
+            dt.Columns.Add("X");
+            dt.Columns.Add("Y");
+            for (int i = 0; i < Points.Count; i++)
+            {
+                DataRow row = dt.NewRow();
+                row[0] = SaveResultV2.KeyPointMean[i];
+                if (Points[i] != null)
+                {
+                    row[1] = Points[i] != null ? Points[i].Value.X.ToString() : "";
+                    row[2] = Points[i] != null ? Points[i].Value.Y.ToString() : "";
+                }
+                dt.Rows.Add(row);
+            }
+            return dt;
         }
+
+        private void dgvKeyPoints_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            bool IsLastRow = false;
+            #region 判斷是不是最後一列
+            var Rows = dgvKeyPoints.SelectedRows;
+            var LastRow = Rows[Rows.Count-1];
+            if (e.Row == LastRow) 
+            {
+                IsLastRow = true;
+            }
+            #endregion
+            #region 刪除資料
+            int RowIndex = e.Row.Index;
+            LabelLog.KeyPoints[RowIndex] = null;
+            #endregion
+            if (IsLastRow) 
+            {
+                ImageProc();
+                GridViewDataReLoad();
+                if (SettingObj.AutoSave) 
+                {
+                    SaveLabelFile();
+                }
+            }
+        }
+        #endregion
+
+
+
     }
 }
