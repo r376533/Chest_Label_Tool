@@ -82,6 +82,10 @@ namespace Chest_Label_Tool
         #region ToolBar
         private void tbOpenFile_Click(object sender, EventArgs e)
         {
+            if (OriginalImage != null) 
+            {
+                SaveLabelFile();
+            }
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
                 dialog.Filter = "*.dcm|*.dcm|All File(*.*)|*.*";
