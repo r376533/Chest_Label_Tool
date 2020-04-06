@@ -498,8 +498,15 @@ namespace Chest_Label_Tool
             }
             return Result;
         }
-        #endregion
 
+        private void Main_UI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (OriginalImage != null) 
+            {
+                SaveLabelFile();
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 要改變圖片就用這個

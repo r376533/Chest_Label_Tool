@@ -35,6 +35,7 @@
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbBatchConvertResult = new System.Windows.Forms.ToolStripMenuItem();
+            this.奇業轉出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +54,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
-            this.奇業轉出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -109,9 +109,16 @@
             // tbBatchConvertResult
             // 
             this.tbBatchConvertResult.Name = "tbBatchConvertResult";
-            this.tbBatchConvertResult.Size = new System.Drawing.Size(180, 22);
+            this.tbBatchConvertResult.Size = new System.Drawing.Size(158, 22);
             this.tbBatchConvertResult.Text = "批次轉換紀錄檔";
             this.tbBatchConvertResult.Click += new System.EventHandler(this.tbBatchConvertResult_Click);
+            // 
+            // 奇業轉出ToolStripMenuItem
+            // 
+            this.奇業轉出ToolStripMenuItem.Name = "奇業轉出ToolStripMenuItem";
+            this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.奇業轉出ToolStripMenuItem.Text = "奇業轉出";
+            this.奇業轉出ToolStripMenuItem.Click += new System.EventHandler(this.奇業轉出ToolStripMenuItem_Click);
             // 
             // tbAboutbtn
             // 
@@ -301,13 +308,6 @@
             this.dgvKeyPoints.Size = new System.Drawing.Size(291, 283);
             this.dgvKeyPoints.TabIndex = 5;
             // 
-            // 奇業轉出ToolStripMenuItem
-            // 
-            this.奇業轉出ToolStripMenuItem.Name = "奇業轉出ToolStripMenuItem";
-            this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.奇業轉出ToolStripMenuItem.Text = "奇業轉出";
-            this.奇業轉出ToolStripMenuItem.Click += new System.EventHandler(this.奇業轉出ToolStripMenuItem_Click);
-            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -321,6 +321,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main_UI";
             this.Text = "胸腔影像標記程式";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_UI_FormClosing);
             this.Load += new System.EventHandler(this.Main_UI_Load);
             this.ToolBar.ResumeLayout(false);
             this.ToolBar.PerformLayout();
