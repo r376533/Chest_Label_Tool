@@ -263,7 +263,6 @@
             this.cbAction.FormattingEnabled = true;
             this.cbAction.Items.AddRange(new object[] {
             "縮放",
-            "框選",
             "打點"});
             this.cbAction.Location = new System.Drawing.Point(8, 37);
             this.cbAction.Name = "cbAction";

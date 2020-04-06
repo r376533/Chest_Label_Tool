@@ -530,28 +530,15 @@ namespace Chest_Label_Tool
 
         private void dgvKeyPoints_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            bool IsLastRow = false;
-            #region 判斷是不是最後一列
-            var Rows = dgvKeyPoints.SelectedRows;
-            var LastRow = Rows[Rows.Count-1];
-            if (e.Row == LastRow) 
+            e.Cancel = true;
+            var SelectRows = dgvKeyPoints.SelectedRows;
+            foreach (DataGridViewRow row in SelectRows)
             {
-                IsLastRow = true;
+                int selectrow = row.Index;
+                LabelLog.KeyPoints[selectrow] = null;
             }
-            #endregion
-            #region 刪除資料
-            int RowIndex = e.Row.Index;
-            LabelLog.KeyPoints[RowIndex] = null;
-            #endregion
-            if (IsLastRow) 
-            {
-                ImageProc();
-                GridViewDataReLoad();
-                if (SettingObj.AutoSave) 
-                {
-                    SaveLabelFile();
-                }
-            }
+            ImageProc();
+            GetRightNowPointInfo();
         }
         #endregion
 
