@@ -14,6 +14,7 @@ using Emgu.CV.UI;
 using Dicom;
 using Dicom.Imaging;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace Chest_Label_Tool.Lib
 {
@@ -68,7 +69,7 @@ namespace Chest_Label_Tool.Lib
                 string finalpath = Path.Combine(TargetPath, resultfilename);
                 //檔案名稱不為異常才可以轉換
                 DicomImage dcmimage = new DicomImage(DcmPath);
-                dcmimage.RenderImage().AsClonedBitmap().Save(finalpath);
+                dcmimage.RenderImage().AsClonedBitmap().Save(finalpath, ImageFormat.Png);
                 Result = finalpath;
             }
             return Result;
