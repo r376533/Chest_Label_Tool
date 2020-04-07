@@ -109,6 +109,12 @@
     <Compile Include="chiYaOutPage.Designer.cs">
       <DependentUpon>chiYaOutPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeyPointCheckPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeyPointCheckPage.Designer.cs">
+      <DependentUpon>KeyPointCheckPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\DcmInfo.cs" />
     <Compile Include="Lib\Func.cs" />
     <Compile Include="Lib\Image_Func.cs" />
@@ -123,6 +129,12 @@
       <DependentUpon>Main_UI.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\Enums.cs" />
+    <Compile Include="ProcessBarPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessBarPage.Designer.cs">
+      <DependentUpon>ProcessBarPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveResultConvertPage.cs">
@@ -140,8 +152,14 @@
     <EmbeddedResource Include="chiYaOutPage.resx">
       <DependentUpon>chiYaOutPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KeyPointCheckPage.resx">
+      <DependentUpon>KeyPointCheckPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main_UI.resx">
       <DependentUpon>Main_UI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessBarPage.resx">
+      <DependentUpon>ProcessBarPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -36,6 +36,7 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbBatchConvertResult = new System.Windows.Forms.ToolStripMenuItem();
             this.奇業轉出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,7 +100,8 @@
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbBatchConvertResult,
-            this.奇業轉出ToolStripMenuItem});
+            this.奇業轉出ToolStripMenuItem,
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -109,16 +111,24 @@
             // tbBatchConvertResult
             // 
             this.tbBatchConvertResult.Name = "tbBatchConvertResult";
-            this.tbBatchConvertResult.Size = new System.Drawing.Size(158, 22);
+            this.tbBatchConvertResult.Size = new System.Drawing.Size(194, 22);
             this.tbBatchConvertResult.Text = "批次轉換紀錄檔";
             this.tbBatchConvertResult.Click += new System.EventHandler(this.tbBatchConvertResult_Click);
             // 
             // 奇業轉出ToolStripMenuItem
             // 
             this.奇業轉出ToolStripMenuItem.Name = "奇業轉出ToolStripMenuItem";
-            this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.奇業轉出ToolStripMenuItem.Text = "奇業轉出";
+            this.奇業轉出ToolStripMenuItem.Visible = false;
             this.奇業轉出ToolStripMenuItem.Click += new System.EventHandler(this.奇業轉出ToolStripMenuItem_Click);
+            // 
+            // 批次紀錄點位邏輯驗證ToolStripMenuItem
+            // 
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Name = "批次紀錄點位邏輯驗證ToolStripMenuItem";
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Text = "批次紀錄點位邏輯驗證";
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Click += new System.EventHandler(this.批次紀錄點位邏輯驗證ToolStripMenuItem_Click);
             // 
             // tbAboutbtn
             // 
@@ -151,6 +161,7 @@
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(94, 22);
             this.lblDebug.Text = "toolStripLabel1";
+            this.lblDebug.Visible = false;
             // 
             // cvImageBox
             // 
@@ -366,6 +377,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem tbBatchConvertResult;
         private System.Windows.Forms.ToolStripMenuItem 奇業轉出ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 批次紀錄點位邏輯驗證ToolStripMenuItem;
     }
 }
 

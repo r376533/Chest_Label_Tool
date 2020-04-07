@@ -91,6 +91,18 @@ namespace Chest_Label_Tool.Lib
                 throw new IOException("File Not Fount");
             }
         }
+
+        public static List<SaveResultV2> ReadFile(List<string> Paths) 
+        {
+            List<SaveResultV2> Logs = new List<SaveResultV2>();
+            foreach (string path in Paths) 
+            {
+                SaveResultV2 item = SaveResultV2.ReadFile(path);
+                Logs.Add(item);
+            }
+            return Logs;
+        }
+
         /// <summary>
         /// 將紀錄檔寫入
         /// </summary>
@@ -120,5 +132,149 @@ namespace Chest_Label_Tool.Lib
             "氣管分岔下緣左點", "氣管分岔下緣中點", "氣管分岔下緣右點",
             "氣管分岔右緣下點", "氣管分岔右緣中點", "氣管分岔右緣上點" };
 
+        /// <summary>
+        /// 檢查KeyPoints是否合理，不合理自動交換
+        /// </summary>
+        public void CheckKeyPoints() 
+        {
+            bool IsContentAll = true;
+            #region 檢查塑膠氣管
+            for (int i = 0; i < 4; i++)
+            {
+                if (KeyPoints[i] == null) 
+                {
+                    IsContentAll = false;
+                }
+            }
+
+            if (IsContentAll) 
+            {
+                //如果塑膠點為都有才可以檢查
+                if (KeyPoints[0].Value.X > KeyPoints[3].Value.X) 
+                {
+                    //如果第一點的位址在第四點的右邊，則1跟4交換2跟3交換
+                    ChangePostion(ref this.KeyPoints, 0, 3);
+                    ChangePostion(ref this.KeyPoints, 1, 2);
+                }
+                if (KeyPoints[0].Value.Y > KeyPoints[1].Value.Y)
+                {
+                    //第1點的位子在第2點的下面，則上下顛倒
+                    ChangePostion(ref this.KeyPoints, 0, 1);
+                }
+                if (KeyPoints[3].Value.Y > KeyPoints[2].Value.Y)
+                {
+                    //第4點的位子在第3點的下面，則上下顛倒
+                    ChangePostion(ref this.KeyPoints, 2, 3);
+                }
+            }
+
+
+            #endregion
+            #region 檢查肺部分岔
+
+            #region 左緣
+            IsContentAll = true;
+            for (int i = 4; i < 7; i++)
+            {
+                if (KeyPoints[i] == null)
+                {
+                    IsContentAll = false;
+                }
+            }
+            if (IsContentAll) 
+            {
+                RePostionByY(ref KeyPoints, 4, 6,"ASC");
+            }
+            #endregion
+
+            #region 下緣
+            IsContentAll = true;
+            for (int i = 7; i < 10; i++)
+            {
+                if (KeyPoints[i] == null)
+                {
+                    IsContentAll = false;
+                }
+            }
+            if (IsContentAll)
+            {
+                RePostionByX(ref KeyPoints, 7, 9, "ASC");
+            }
+            #endregion
+
+            #region 右緣
+            IsContentAll = true;
+            for (int i = 10; i < 13; i++)
+            {
+                if (KeyPoints[i] == null)
+                {
+                    IsContentAll = false;
+                }
+            }
+            if (IsContentAll)
+            {
+                RePostionByY(ref KeyPoints, 10, 12, "DESC");
+            }
+            #endregion
+
+            #endregion
+        }
+
+        /// <summary>
+        /// 兩點點為交換
+        /// </summary>
+        /// <param name="Points"></param>
+        /// <param name="Point1Index"></param>
+        /// <param name="Point2Index"></param>
+        private void ChangePostion(ref List<Nullable<Point>> Points,int Point1Index,int Point2Index) 
+        {
+            Point tempPoint = Points[Point1Index].Value;
+            Points[Point1Index] = Points[Point2Index].Value;
+            Points[Point2Index] = tempPoint;
+        }
+        /// <summary>
+        /// 依照X進行排序
+        /// </summary>
+        /// <param name="Points"></param>
+        private void RePostionByX(ref List<Nullable<Point>> Points,int StartPos,int EndPos,string Type="ASC") 
+        {
+            List<Nullable<Point>> SubSet = Points.GetRange(StartPos, EndPos - StartPos + 1);
+            switch (Type) 
+            {
+                case "ASC":
+                default:
+                    SubSet = SubSet.OrderBy(m => m.Value.X).ToList();
+                    break;
+                case "DESC":
+                    SubSet = SubSet.OrderByDescending(m => m.Value.X).ToList();
+                    break;
+            }
+            for (int i = StartPos; i < EndPos+1; i++)
+            {
+                Points[i] = SubSet[i - StartPos];
+            }
+        }
+        /// <summary>
+        /// 依照Y進行排序
+        /// </summary>
+        /// <param name="Points"></param>
+        private void RePostionByY(ref List<Nullable<Point>> Points, int StartPos, int EndPos, string Type = "ASC")
+        {
+            List<Nullable<Point>> SubSet = Points.GetRange(StartPos, EndPos - StartPos + 1);
+            switch (Type)
+            {
+                case "ASC":
+                default:
+                    SubSet = SubSet.OrderBy(m => m.Value.Y).ToList();
+                    break;
+                case "DESC":
+                    SubSet = SubSet.OrderByDescending(m => m.Value.Y).ToList();
+                    break;
+            }
+            for (int i = StartPos; i < EndPos + 1; i++)
+            {
+                Points[i] = SubSet[i - StartPos];
+            }
+        }
     }
 }

@@ -41,6 +41,7 @@ namespace Chest_Label_Tool
 
         private SaveResultConvertPage saveResultConvertPage;
         private chiYaOutPage chiYaOutPage;
+        private KeyPointCheckPage KeyPointCheckPage;
 
         public Main_UI()
         {
@@ -68,6 +69,11 @@ namespace Chest_Label_Tool
                 chiYaOutPage = new chiYaOutPage();
                 chiYaOutPage.Hide();
             }
+            if (KeyPointCheckPage == null) 
+            {
+                KeyPointCheckPage = new KeyPointCheckPage(SettingObj);
+                KeyPointCheckPage.Hide();
+            }
             #endregion
 
             #region ActionGroup
@@ -84,7 +90,10 @@ namespace Chest_Label_Tool
         {
             if (OriginalImage != null) 
             {
-                SaveLabelFile();
+                if (MessageBox.Show("是否要對上一次的操作結果儲存?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) 
+                {
+                    SaveLabelFile();
+                }
             }
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
@@ -130,6 +139,12 @@ namespace Chest_Label_Tool
         {
             chiYaOutPage.Show();
             chiYaOutPage.Focus();
+        }
+
+        private void 批次紀錄點位邏輯驗證ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KeyPointCheckPage.Show();
+            KeyPointCheckPage.Focus();
         }
         #endregion
 
@@ -502,6 +517,8 @@ namespace Chest_Label_Tool
             DataTable dt = ListDataToDt(KeyPoints);
             dgvKeyPoints.DataSource = dt;
         }
+
+        
 
         /// <summary>
         /// 把標記點轉成DataTable
