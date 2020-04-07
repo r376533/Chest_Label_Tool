@@ -120,7 +120,7 @@ namespace Chest_Label_Tool
                 string FileName = System.IO.Path.GetFileNameWithoutExtension(str);
                 string DcmFilePath = str.Substring(0, str.Length - 5) + ".dcm";
                 string DCMTargetFilePath = str; //要複寫的
-                Image_Func.DcmToJPG(DcmFilePath, JPGDirPath);
+                Image_Func.DcmToPNG(DcmFilePath, JPGDirPath);
             }
         }
 

@@ -34,8 +34,6 @@ namespace Chest_Label_Tool
         private Bgr Color_Blue;
 
         private ProgramAction RightNowMode;
-        private bool IsInAction;
-        private bool IsMouseDown;
 
         private SaveResultV2 LabelLog;
 
@@ -78,8 +76,6 @@ namespace Chest_Label_Tool
 
             #region ActionGroup
             RightNowMode = ProgramAction.None;
-            IsInAction = false;
-            IsMouseDown = false;
             #endregion
             Color_Red = new Bgr(0, 0, 255);
             Color_Blue = new Bgr(255, 0, 0);
@@ -109,7 +105,7 @@ namespace Chest_Label_Tool
                     if (!Func.CheckFileExist(targetFilePath))
                     {
                         //檔案不存在
-                        string jpgFilePath = Image_Func.DcmToJPG(ImagePath_Dcm, SettingObj.SavePath);
+                        string jpgFilePath = Image_Func.DcmToPNG(ImagePath_Dcm, SettingObj.SavePath);
                         targetFilePath = jpgFilePath;
                     }
                     ImagePath_Jpg = targetFilePath;

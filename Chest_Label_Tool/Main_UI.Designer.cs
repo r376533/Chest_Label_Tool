@@ -33,6 +33,7 @@
             this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.tbFilebtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.儲存檔案ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbBatchConvertResult = new System.Windows.Forms.ToolStripMenuItem();
             this.奇業轉出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
-            this.儲存檔案ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -93,9 +93,16 @@
             // tbOpenFile
             // 
             this.tbOpenFile.Name = "tbOpenFile";
-            this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
+            this.tbOpenFile.Size = new System.Drawing.Size(122, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
+            // 
+            // 儲存檔案ToolStripMenuItem
+            // 
+            this.儲存檔案ToolStripMenuItem.Name = "儲存檔案ToolStripMenuItem";
+            this.儲存檔案ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.儲存檔案ToolStripMenuItem.Text = "儲存檔案";
+            this.儲存檔案ToolStripMenuItem.Click += new System.EventHandler(this.儲存檔案ToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton1
             // 
@@ -318,13 +325,6 @@
             this.dgvKeyPoints.TabIndex = 5;
             this.dgvKeyPoints.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvKeyPoints_UserDeletingRow);
             // 
-            // 儲存檔案ToolStripMenuItem
-            // 
-            this.儲存檔案ToolStripMenuItem.Name = "儲存檔案ToolStripMenuItem";
-            this.儲存檔案ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.儲存檔案ToolStripMenuItem.Text = "儲存檔案";
-            this.儲存檔案ToolStripMenuItem.Click += new System.EventHandler(this.儲存檔案ToolStripMenuItem_Click);
-            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -336,6 +336,7 @@
             this.Controls.Add(this.cvImageBox);
             this.Controls.Add(this.ToolBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main_UI";
             this.Text = "胸腔影像標記程式";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_UI_FormClosing);

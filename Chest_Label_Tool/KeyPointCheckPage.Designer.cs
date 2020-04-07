@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KeyPointCheckPage));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -120,8 +121,9 @@
             this.ClientSize = new System.Drawing.Size(406, 129);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "KeyPointCheckPage";
-            this.Text = "KeyPointCheckPage";
+            this.Text = "批次點位邏輯驗證";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KeyPointCheckPage_FormClosing);
             this.Load += new System.EventHandler(this.KeyPointCheckPage_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
