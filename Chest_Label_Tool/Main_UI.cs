@@ -110,7 +110,8 @@ namespace Chest_Label_Tool
                     }
                     ImagePath_Jpg = targetFilePath;
                     //顯示在ImageBox
-                    Image<Bgr,Byte> img = new Image<Bgr, Byte>(targetFilePath);
+                    Bitmap image = (Bitmap)Bitmap.FromFile(ImagePath_Jpg);
+                    Image<Bgr,Byte> img = new Image<Bgr, Byte>(image);
                     SettingImage(img);
                     LoadingLabelFile(ImagePath_Dcm, ImagePath_Jpg);
                     AdjustmentInit(true);
