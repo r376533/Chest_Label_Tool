@@ -55,6 +55,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
+            this.儲存檔案ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -81,7 +82,8 @@
             // 
             this.tbFilebtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tbFilebtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbOpenFile});
+            this.tbOpenFile,
+            this.儲存檔案ToolStripMenuItem});
             this.tbFilebtn.Image = ((System.Drawing.Image)(resources.GetObject("tbFilebtn.Image")));
             this.tbFilebtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbFilebtn.Name = "tbFilebtn";
@@ -91,7 +93,7 @@
             // tbOpenFile
             // 
             this.tbOpenFile.Name = "tbOpenFile";
-            this.tbOpenFile.Size = new System.Drawing.Size(122, 22);
+            this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
             // 
@@ -173,11 +175,6 @@
             this.cvImageBox.TabIndex = 2;
             this.cvImageBox.TabStop = false;
             this.cvImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseClick);
-            this.cvImageBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseDown);
-            this.cvImageBox.MouseEnter += new System.EventHandler(this.cvImageBox_MouseEnter);
-            this.cvImageBox.MouseLeave += new System.EventHandler(this.cvImageBox_MouseLeave);
-            this.cvImageBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseMove);
-            this.cvImageBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseUp);
             // 
             // AdjustmentGroup
             // 
@@ -321,6 +318,13 @@
             this.dgvKeyPoints.TabIndex = 5;
             this.dgvKeyPoints.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvKeyPoints_UserDeletingRow);
             // 
+            // 儲存檔案ToolStripMenuItem
+            // 
+            this.儲存檔案ToolStripMenuItem.Name = "儲存檔案ToolStripMenuItem";
+            this.儲存檔案ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.儲存檔案ToolStripMenuItem.Text = "儲存檔案";
+            this.儲存檔案ToolStripMenuItem.Click += new System.EventHandler(this.儲存檔案ToolStripMenuItem_Click);
+            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -378,6 +382,7 @@
         private System.Windows.Forms.ToolStripMenuItem tbBatchConvertResult;
         private System.Windows.Forms.ToolStripMenuItem 奇業轉出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 批次紀錄點位邏輯驗證ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 儲存檔案ToolStripMenuItem;
     }
 }
 

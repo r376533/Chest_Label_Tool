@@ -146,6 +146,14 @@ namespace Chest_Label_Tool
             KeyPointCheckPage.Show();
             KeyPointCheckPage.Focus();
         }
+
+        private void 儲存檔案ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (OriginalImage != null) 
+            {
+                SaveLabelFile();
+            }
+        }
         #endregion
 
         #region cvImageBox
@@ -164,78 +172,6 @@ namespace Chest_Label_Tool
                     case ProgramAction.Point:
                         AddPoint(ImageLocation);
                         break;
-                }
-            }
-        }
-        private void cvImageBox_MouseEnter(object sender, EventArgs e)
-        {
-            if (cvImageBox.Image != null) 
-            {
-                IsInAction = true;
-                lblDebug.Text = "Action Enter";
-                switch (RightNowMode)
-                {
-                    case ProgramAction.Zoom:
-                        cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
-                        break;
-                }
-            }
-        }
-
-        private void cvImageBox_MouseLeave(object sender, EventArgs e)
-        {
-            if (cvImageBox.Image != null)
-            {
-                IsInAction = false;
-                cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
-                lblDebug.Text = "Action Leave";
-                switch (RightNowMode)
-                {
-                    case ProgramAction.Zoom:
-                        
-                        break;
-                }
-            }
-        }
-
-        private void cvImageBox_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (cvImageBox.Image != null)
-            {
-                lblDebug.Text = "Action Mouse Down";
-                IsMouseDown = true;
-            }
-        }
-
-        private void cvImageBox_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (cvImageBox.Image != null && IsInAction && IsMouseDown)
-            {
-                //當前有圖片且有按下滑鼠時
-                lblDebug.Text = "Action Mouse Down";
-                int RightNowXValue = cvImageBox.HorizontalScrollBar.Value;
-                int RightNowYValue = cvImageBox.HorizontalScrollBar.Value;
-                int MaxXValue = cvImageBox.HorizontalScrollBar.Maximum;
-                int MinXValue = cvImageBox.HorizontalScrollBar.Minimum;
-                int MaxYValue = cvImageBox.VerticalScrollBar.Maximum;
-                int MinYValue = cvImageBox.VerticalScrollBar.Minimum;
-                double ZoomRate = cvImageBox.ZoomScale;
-                switch (RightNowMode)
-                {
-
-                }
-            }
-        }
-
-        private void cvImageBox_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (cvImageBox.Image != null)
-            {
-                lblDebug.Text = "Action Mouse Down";
-                IsMouseDown = false;
-                switch (RightNowMode)
-                {
-
                 }
             }
         }
@@ -319,11 +255,6 @@ namespace Chest_Label_Tool
                     lblPointInfo.Text = "...";
                     break;
                 case 1:
-                    RightNowMode = ProgramAction.Select;
-                    cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
-                    lblPointInfo.Text = "...";
-                    break;
-                case 2:
                     RightNowMode = ProgramAction.Point;
                     cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
                     lblPointInfo.Text = GetRightNowPointInfo();
@@ -517,9 +448,6 @@ namespace Chest_Label_Tool
             DataTable dt = ListDataToDt(KeyPoints);
             dgvKeyPoints.DataSource = dt;
         }
-
-        
-
         /// <summary>
         /// 把標記點轉成DataTable
         /// </summary>
