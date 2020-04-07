@@ -204,6 +204,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resource\chest.ico" />
+    <Content Include="Resource\chest_tiny.ico" />
     <Content Include="Resource\Zoom.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
