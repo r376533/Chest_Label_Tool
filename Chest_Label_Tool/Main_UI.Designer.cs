@@ -44,6 +44,9 @@
             this.lblDebug = new System.Windows.Forms.ToolStripLabel();
             this.cvImageBox = new Emgu.CV.UI.ImageBox();
             this.AdjustmentGroup = new System.Windows.Forms.GroupBox();
+            this.trbImageZoom = new System.Windows.Forms.TrackBar();
+            this.btnImageZoomScaleReset = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnImageContrastReset = new System.Windows.Forms.Button();
             this.btnImageBrightnessReset = new System.Windows.Forms.Button();
             this.trbImageContrast = new System.Windows.Forms.TrackBar();
@@ -59,6 +62,7 @@
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trbImageZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageBrightness)).BeginInit();
             this.ActionGroup.SuspendLayout();
@@ -170,7 +174,6 @@
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(94, 22);
             this.lblDebug.Text = "toolStripLabel1";
-            this.lblDebug.Visible = false;
             // 
             // cvImageBox
             // 
@@ -178,13 +181,16 @@
             this.cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
             this.cvImageBox.Location = new System.Drawing.Point(12, 28);
             this.cvImageBox.Name = "cvImageBox";
-            this.cvImageBox.Size = new System.Drawing.Size(523, 626);
+            this.cvImageBox.Size = new System.Drawing.Size(523, 693);
             this.cvImageBox.TabIndex = 2;
             this.cvImageBox.TabStop = false;
             this.cvImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseClick);
             // 
             // AdjustmentGroup
             // 
+            this.AdjustmentGroup.Controls.Add(this.trbImageZoom);
+            this.AdjustmentGroup.Controls.Add(this.btnImageZoomScaleReset);
+            this.AdjustmentGroup.Controls.Add(this.label5);
             this.AdjustmentGroup.Controls.Add(this.btnImageContrastReset);
             this.AdjustmentGroup.Controls.Add(this.btnImageBrightnessReset);
             this.AdjustmentGroup.Controls.Add(this.trbImageContrast);
@@ -194,10 +200,37 @@
             this.AdjustmentGroup.Enabled = false;
             this.AdjustmentGroup.Location = new System.Drawing.Point(541, 28);
             this.AdjustmentGroup.Name = "AdjustmentGroup";
-            this.AdjustmentGroup.Size = new System.Drawing.Size(301, 149);
+            this.AdjustmentGroup.Size = new System.Drawing.Size(301, 200);
             this.AdjustmentGroup.TabIndex = 3;
             this.AdjustmentGroup.TabStop = false;
             this.AdjustmentGroup.Text = "影像調整";
+            // 
+            // trbImageZoom
+            // 
+            this.trbImageZoom.Location = new System.Drawing.Point(9, 152);
+            this.trbImageZoom.Maximum = 100;
+            this.trbImageZoom.Name = "trbImageZoom";
+            this.trbImageZoom.Size = new System.Drawing.Size(273, 45);
+            this.trbImageZoom.TabIndex = 8;
+            this.trbImageZoom.Scroll += new System.EventHandler(this.trbImageZoom_Scroll);
+            // 
+            // btnImageZoomScaleReset
+            // 
+            this.btnImageZoomScaleReset.Location = new System.Drawing.Point(207, 134);
+            this.btnImageZoomScaleReset.Name = "btnImageZoomScaleReset";
+            this.btnImageZoomScaleReset.Size = new System.Drawing.Size(75, 23);
+            this.btnImageZoomScaleReset.TabIndex = 7;
+            this.btnImageZoomScaleReset.Text = "Reset";
+            this.btnImageZoomScaleReset.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 134);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "縮放比例";
             // 
             // btnImageContrastReset
             // 
@@ -266,7 +299,7 @@
             this.ActionGroup.Controls.Add(this.label4);
             this.ActionGroup.Controls.Add(this.label3);
             this.ActionGroup.Enabled = false;
-            this.ActionGroup.Location = new System.Drawing.Point(541, 183);
+            this.ActionGroup.Location = new System.Drawing.Point(541, 234);
             this.ActionGroup.Name = "ActionGroup";
             this.ActionGroup.Size = new System.Drawing.Size(301, 115);
             this.ActionGroup.TabIndex = 4;
@@ -317,11 +350,11 @@
             // 
             this.dgvKeyPoints.AllowUserToAddRows = false;
             this.dgvKeyPoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKeyPoints.Location = new System.Drawing.Point(541, 304);
+            this.dgvKeyPoints.Location = new System.Drawing.Point(541, 355);
             this.dgvKeyPoints.Name = "dgvKeyPoints";
             this.dgvKeyPoints.ReadOnly = true;
             this.dgvKeyPoints.RowTemplate.Height = 24;
-            this.dgvKeyPoints.Size = new System.Drawing.Size(301, 350);
+            this.dgvKeyPoints.Size = new System.Drawing.Size(301, 366);
             this.dgvKeyPoints.TabIndex = 5;
             this.dgvKeyPoints.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvKeyPoints_UserDeletingRow);
             // 
@@ -329,7 +362,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(854, 666);
+            this.ClientSize = new System.Drawing.Size(854, 733);
             this.Controls.Add(this.dgvKeyPoints);
             this.Controls.Add(this.ActionGroup);
             this.Controls.Add(this.AdjustmentGroup);
@@ -346,6 +379,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).EndInit();
             this.AdjustmentGroup.ResumeLayout(false);
             this.AdjustmentGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trbImageZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbImageBrightness)).EndInit();
             this.ActionGroup.ResumeLayout(false);
@@ -384,6 +418,9 @@
         private System.Windows.Forms.ToolStripMenuItem 奇業轉出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 批次紀錄點位邏輯驗證ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 儲存檔案ToolStripMenuItem;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnImageZoomScaleReset;
+        private System.Windows.Forms.TrackBar trbImageZoom;
     }
 }
 

@@ -79,15 +79,15 @@ namespace Chest_Label_Tool.Lib
         /// 把Click的點轉成圖像中的像素點
         /// </summary>
         /// <param name="imageBox"></param>
-        /// <param name="mouseEventArgs"></param>
+        /// <param name="MousePoint"></param>
         /// <returns></returns>
-        public static Point GetImagePointFromImageBox(ImageBox imageBox, MouseEventArgs mouseEventArgs) 
+        public static Point GetImagePointFromImageBox(ImageBox imageBox, Point MousePoint) 
         {
             double zoom = imageBox.ZoomScale;
             Point Result = new Point(0,0);
             //點位跟縮放比例有關西，所以畫面上的點位就是目前滑鼠點位除縮放即可得到大概位置
-            Result.X = (int)(mouseEventArgs.Location.X / zoom);
-            Result.Y = (int)(mouseEventArgs.Location.Y / zoom);
+            Result.X = (int)(MousePoint.X / zoom);
+            Result.Y = (int)(MousePoint.Y / zoom);
             //要考慮到如果有ScrollBar就要針對對子去做位移
             int horizontalScrollBarValue = imageBox.HorizontalScrollBar.Visible ? (int)imageBox.HorizontalScrollBar.Value : 0;
             int verticalScrollBarValue = imageBox.VerticalScrollBar.Visible ? (int)imageBox.VerticalScrollBar.Value : 0;

@@ -32,6 +32,10 @@ namespace Chest_Label_Tool
         private Image<Bgr, Byte> RightNowImage, OriginalImage;
         private Bgr Color_Red;
         private Bgr Color_Blue;
+        private double LastTimeZoomRate;
+        private double MinZoomRate;
+        private double MaxZoomRate;
+        private Point MouseLastTimePoint;
 
         private ProgramAction RightNowMode;
 
@@ -79,6 +83,12 @@ namespace Chest_Label_Tool
             #endregion
             Color_Red = new Bgr(0, 0, 255);
             Color_Blue = new Bgr(255, 0, 0);
+
+            #region 隱藏放大視窗按鈕
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            cvImageBox.MouseWheel += cvImageBox_MouseWheelEvent;
+            #endregion
         }
 
         #region ToolBar
@@ -159,7 +169,7 @@ namespace Chest_Label_Tool
             if (cvImageBox.Image != null)
             {
                 //抓出影像中的點
-                Point ImageLocation = Image_Func.GetImagePointFromImageBox(cvImageBox, e);
+                Point ImageLocation = Image_Func.GetImagePointFromImageBox(cvImageBox, e.Location);
                 switch (RightNowMode) 
                 {
                     case ProgramAction.Zoom:
@@ -184,9 +194,12 @@ namespace Chest_Label_Tool
             Size ImageSize = RightNowImage.Size;
             double X_Zoom_Rate = (double)ImageWindoeSize.Width / (double)ImageSize.Width;
             double Y_Zoom_Rate = (double)ImageWindoeSize.Height / (double)ImageSize.Height;
-            double Final_Zoom_Rate = (X_Zoom_Rate + Y_Zoom_Rate) / 2;
+            double Final_Zoom_Rate = Math.Max(X_Zoom_Rate, Y_Zoom_Rate);
+            MinZoomRate = Final_Zoom_Rate;
+            MaxZoomRate = 1; //影像最多倍放大比例
+            LastTimeZoomRate = Final_Zoom_Rate;
             cvImageBox.Image = RightNowImage;
-            cvImageBox.SetZoomScale(Final_Zoom_Rate, new Point(ImageWindoeSize.Width / 2, ImageWindoeSize.Height / 2));
+            ChangeZoom(new Point(ImageWindoeSize.Width / 2, ImageWindoeSize.Height / 2), 0);
             cvImageBox.HorizontalScrollBar.Visible = true;
             cvImageBox.VerticalScrollBar.Visible = true;
             cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
@@ -194,10 +207,40 @@ namespace Chest_Label_Tool
             ActionGroup.Enabled = true;
             cbAction.SelectedIndex = 0;
         }
+        private void ChangeZoom(Point FixPoint, int ZoomScaleLevel) 
+        {
+            if (OriginalImage != null) 
+            {
+                double NewScale = ((    (MaxZoomRate - MinZoomRate) / 100  ) * ZoomScaleLevel) + MinZoomRate;
+                cvImageBox.SetZoomScale(NewScale, FixPoint);
+            }
+        }
 
+        private void cvImageBox_MouseWheelEvent(object sender, MouseEventArgs e) 
+        {
+            int nowvalue = trbImageZoom.Value;
+            if (e.Delta > 0)
+            {
+                nowvalue = (nowvalue + 5) > trbImageZoom.Maximum ? trbImageZoom.Maximum : nowvalue + 5;
+            }
+            else 
+            {
+                nowvalue = (nowvalue - 5) < trbImageZoom.Minimum ? trbImageZoom.Minimum : nowvalue - 5;
+            }
+            trbImageZoom.Value = nowvalue;
+            trbImageZoom_Scroll(null, null);
+        }
         #endregion
 
         #region 影像微調設定
+
+        private void trbImageZoom_Scroll(object sender, EventArgs e)
+        {
+            //如果是拉Bar調整縮放，則固定目前畫面中間的點
+            Point Center = new Point(cvImageBox.Width / 2, cvImageBox.Height / 2);
+            //Center = Image_Func.GetImagePointFromImageBox(cvImageBox, Center);
+            ChangeZoom(Center, trbImageZoom.Value);
+        }
 
         private void AdjustmentInit(bool IsEnable) 
         {
@@ -206,6 +249,7 @@ namespace Chest_Label_Tool
             {
                 trbImageBrightness.Value = 0;
                 trbImageContrast.Value = 0;
+                trbImageZoom.Value = 0;
             }
         }
 
@@ -248,7 +292,8 @@ namespace Chest_Label_Tool
             {
                 case 0:
                     RightNowMode = ProgramAction.Zoom;
-                    cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
+                    //cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
+                    cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
                     lblPointInfo.Text = "...";
                     break;
                 case 1:
