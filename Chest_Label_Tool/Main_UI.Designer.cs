@@ -174,6 +174,7 @@
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(94, 22);
             this.lblDebug.Text = "toolStripLabel1";
+            this.lblDebug.Visible = false;
             // 
             // cvImageBox
             // 

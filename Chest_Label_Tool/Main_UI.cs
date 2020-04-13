@@ -388,7 +388,7 @@ namespace Chest_Label_Tool
             {
                 if (Point != null) 
                 {
-                    Img = Image_Func.DrawPoint(Img, Point.Value, Color_Blue);
+                    Img = Image_Func.DrawPoint(ref Img, Point.Value, Color_Blue);
                 }
             }
             #endregion
@@ -399,7 +399,7 @@ namespace Chest_Label_Tool
                 {
                     if (KeyPoint[i] != null && KeyPoint[i - 1] != null)
                     {
-                        Img = Image_Func.DrawLine(Img, KeyPoint[i - 1].Value, KeyPoint[i].Value, Color_Red);
+                        Img = Image_Func.DrawLine(ref Img, KeyPoint[i - 1].Value, KeyPoint[i].Value, Color_Red);
                     }
                 }
             }
@@ -411,7 +411,7 @@ namespace Chest_Label_Tool
                 {
                     if (KeyPoint[i] != null && KeyPoint[i - 1] != null) 
                     {
-                        Img = Image_Func.DrawLine(Img, KeyPoint[i - 1].Value, KeyPoint[i].Value, Color_Red);
+                        Img = Image_Func.DrawLine(ref Img, KeyPoint[i - 1].Value, KeyPoint[i].Value, Color_Red);
                     }
                 }
             }
