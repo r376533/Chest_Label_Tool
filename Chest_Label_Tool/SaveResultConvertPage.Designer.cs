@@ -35,29 +35,23 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.txtSourcePath = new System.Windows.Forms.TextBox();
             this.btnSourcePathBrowser = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnTargetPathBrowser = new System.Windows.Forms.Button();
-            this.txtTargetPath = new System.Windows.Forms.TextBox();
-            this.cbIsOverWrite = new System.Windows.Forms.CheckBox();
             this.BtnStartProcess = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
-            this.flowLayoutPanel1.Controls.Add(this.groupBox2);
             this.flowLayoutPanel1.Controls.Add(this.BtnStartProcess);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(393, 219);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(393, 131);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -108,51 +102,10 @@
             this.btnSourcePathBrowser.UseVisualStyleBackColor = true;
             this.btnSourcePathBrowser.Click += new System.EventHandler(this.btnSourcePathBrowser_Click);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnTargetPathBrowser);
-            this.groupBox2.Controls.Add(this.txtTargetPath);
-            this.groupBox2.Controls.Add(this.cbIsOverWrite);
-            this.groupBox2.Location = new System.Drawing.Point(13, 92);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(365, 82);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "輸出";
-            // 
-            // btnTargetPathBrowser
-            // 
-            this.btnTargetPathBrowser.Location = new System.Drawing.Point(266, 44);
-            this.btnTargetPathBrowser.Name = "btnTargetPathBrowser";
-            this.btnTargetPathBrowser.Size = new System.Drawing.Size(75, 23);
-            this.btnTargetPathBrowser.TabIndex = 2;
-            this.btnTargetPathBrowser.Text = "開啟";
-            this.btnTargetPathBrowser.UseVisualStyleBackColor = true;
-            this.btnTargetPathBrowser.Click += new System.EventHandler(this.btnTargetPathBrowser_Click);
-            // 
-            // txtTargetPath
-            // 
-            this.txtTargetPath.Enabled = false;
-            this.txtTargetPath.Location = new System.Drawing.Point(11, 44);
-            this.txtTargetPath.Name = "txtTargetPath";
-            this.txtTargetPath.Size = new System.Drawing.Size(249, 22);
-            this.txtTargetPath.TabIndex = 1;
-            // 
-            // cbIsOverWrite
-            // 
-            this.cbIsOverWrite.AutoSize = true;
-            this.cbIsOverWrite.Location = new System.Drawing.Point(11, 22);
-            this.cbIsOverWrite.Name = "cbIsOverWrite";
-            this.cbIsOverWrite.Size = new System.Drawing.Size(96, 16);
-            this.cbIsOverWrite.TabIndex = 0;
-            this.cbIsOverWrite.Text = "覆蓋原始檔案";
-            this.cbIsOverWrite.UseVisualStyleBackColor = true;
-            this.cbIsOverWrite.CheckedChanged += new System.EventHandler(this.cbIsOverWrite_CheckedChanged);
-            // 
             // BtnStartProcess
             // 
             this.BtnStartProcess.Enabled = false;
-            this.BtnStartProcess.Location = new System.Drawing.Point(13, 180);
+            this.BtnStartProcess.Location = new System.Drawing.Point(13, 92);
             this.BtnStartProcess.Name = "BtnStartProcess";
             this.BtnStartProcess.Size = new System.Drawing.Size(365, 23);
             this.BtnStartProcess.TabIndex = 3;
@@ -164,7 +117,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 219);
+            this.ClientSize = new System.Drawing.Size(393, 131);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -177,8 +130,6 @@
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -191,10 +142,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.TextBox txtSourcePath;
         private System.Windows.Forms.Button btnSourcePathBrowser;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnTargetPathBrowser;
-        private System.Windows.Forms.TextBox txtTargetPath;
-        private System.Windows.Forms.CheckBox cbIsOverWrite;
         private System.Windows.Forms.Button BtnStartProcess;
     }
 }

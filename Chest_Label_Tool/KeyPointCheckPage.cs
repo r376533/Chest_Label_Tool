@@ -29,6 +29,11 @@ namespace Chest_Label_Tool
         {
             ProcessBarPage = new ProcessBarPage();
             ProcessBarPage.Hide();
+
+            #region 隱藏放大視窗按鈕
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            #endregion
         }
 
         private void KeyPointCheckPage_FormClosing(object sender, FormClosingEventArgs e)

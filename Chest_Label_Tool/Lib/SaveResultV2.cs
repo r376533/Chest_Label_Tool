@@ -104,7 +104,7 @@ namespace Chest_Label_Tool.Lib
         }
 
         /// <summary>
-        /// 將紀錄檔寫入
+        /// 將紀錄檔寫入[如果檔案存在，則複寫檔案]
         /// </summary>
         /// <param name="Path">路徑</param>
         public static void SaveFile(SaveResultV2 saveobj, string Path) 

@@ -87,8 +87,9 @@ namespace Chest_Label_Tool
             #region 隱藏放大視窗按鈕
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            cvImageBox.MouseWheel += cvImageBox_MouseWheelEvent;
             #endregion
+
+            cvImageBox.MouseWheel += cvImageBox_MouseWheelEvent;
         }
 
         #region ToolBar
