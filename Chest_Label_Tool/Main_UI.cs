@@ -386,6 +386,14 @@ namespace Chest_Label_Tool
             trbImageContrast_Scroll(null, null);
         }
 
+        private void cbShowKeyPoint_CheckedChanged(object sender, EventArgs e)
+        {
+            if (OriginalImage != null) 
+            {
+                ImageProc();
+            }
+        }
+
         private void cbAction_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Action發生更動的話要處理的事情
@@ -430,10 +438,15 @@ namespace Chest_Label_Tool
             //調亮度跟對比度
             Img = Image_Func.BrightnessAndContrast(Img, B_Level, C_Level);
             //畫點劃線
-            Img = ImageLabelDataReLoad(Img, KeyPoints);
+            if (cbShowKeyPoint.Checked) 
+            {
+                Img = ImageLabelDataReLoad(Img, KeyPoints);
+            }
             cvImageBox.Image = Img;
             //載入資料表
             GridViewDataReLoad();
+            //防止記憶體爆炸
+            GC.Collect();
         }
         #endregion
 
@@ -592,6 +605,7 @@ namespace Chest_Label_Tool
             DataTable dt = ListDataToDt(KeyPoints);
             dgvKeyPoints.DataSource = dt;
         }
+
         /// <summary>
         /// 把標記點轉成DataTable
         /// </summary>

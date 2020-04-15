@@ -59,6 +59,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
+            this.cbShowKeyPoint = new System.Windows.Forms.CheckBox();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -98,15 +99,16 @@
             // tbOpenFile
             // 
             this.tbOpenFile.Name = "tbOpenFile";
-            this.tbOpenFile.Size = new System.Drawing.Size(122, 22);
+            this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
             // 
             // 儲存檔案ToolStripMenuItem
             // 
             this.儲存檔案ToolStripMenuItem.Name = "儲存檔案ToolStripMenuItem";
-            this.儲存檔案ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.儲存檔案ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.儲存檔案ToolStripMenuItem.Text = "儲存檔案";
+            this.儲存檔案ToolStripMenuItem.Visible = false;
             this.儲存檔案ToolStripMenuItem.Click += new System.EventHandler(this.儲存檔案ToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton1
@@ -183,7 +185,7 @@
             this.cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
             this.cvImageBox.Location = new System.Drawing.Point(12, 28);
             this.cvImageBox.Name = "cvImageBox";
-            this.cvImageBox.Size = new System.Drawing.Size(523, 693);
+            this.cvImageBox.Size = new System.Drawing.Size(523, 732);
             this.cvImageBox.TabIndex = 2;
             this.cvImageBox.TabStop = false;
             this.cvImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseClick);
@@ -193,6 +195,7 @@
             // 
             // AdjustmentGroup
             // 
+            this.AdjustmentGroup.Controls.Add(this.cbShowKeyPoint);
             this.AdjustmentGroup.Controls.Add(this.trbImageZoom);
             this.AdjustmentGroup.Controls.Add(this.btnImageZoomScaleReset);
             this.AdjustmentGroup.Controls.Add(this.label5);
@@ -205,7 +208,7 @@
             this.AdjustmentGroup.Enabled = false;
             this.AdjustmentGroup.Location = new System.Drawing.Point(541, 28);
             this.AdjustmentGroup.Name = "AdjustmentGroup";
-            this.AdjustmentGroup.Size = new System.Drawing.Size(301, 200);
+            this.AdjustmentGroup.Size = new System.Drawing.Size(301, 219);
             this.AdjustmentGroup.TabIndex = 3;
             this.AdjustmentGroup.TabStop = false;
             this.AdjustmentGroup.Text = "影像調整";
@@ -304,7 +307,7 @@
             this.ActionGroup.Controls.Add(this.label4);
             this.ActionGroup.Controls.Add(this.label3);
             this.ActionGroup.Enabled = false;
-            this.ActionGroup.Location = new System.Drawing.Point(541, 234);
+            this.ActionGroup.Location = new System.Drawing.Point(541, 273);
             this.ActionGroup.Name = "ActionGroup";
             this.ActionGroup.Size = new System.Drawing.Size(301, 115);
             this.ActionGroup.TabIndex = 4;
@@ -355,7 +358,7 @@
             // 
             this.dgvKeyPoints.AllowUserToAddRows = false;
             this.dgvKeyPoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKeyPoints.Location = new System.Drawing.Point(541, 355);
+            this.dgvKeyPoints.Location = new System.Drawing.Point(541, 394);
             this.dgvKeyPoints.Name = "dgvKeyPoints";
             this.dgvKeyPoints.ReadOnly = true;
             this.dgvKeyPoints.RowTemplate.Height = 24;
@@ -363,11 +366,24 @@
             this.dgvKeyPoints.TabIndex = 5;
             this.dgvKeyPoints.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvKeyPoints_UserDeletingRow);
             // 
+            // cbShowKeyPoint
+            // 
+            this.cbShowKeyPoint.AutoSize = true;
+            this.cbShowKeyPoint.Checked = true;
+            this.cbShowKeyPoint.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbShowKeyPoint.Location = new System.Drawing.Point(8, 190);
+            this.cbShowKeyPoint.Name = "cbShowKeyPoint";
+            this.cbShowKeyPoint.Size = new System.Drawing.Size(48, 11);
+            this.cbShowKeyPoint.TabIndex = 9;
+            this.cbShowKeyPoint.Text = "顯示畫點";
+            this.cbShowKeyPoint.UseVisualStyleBackColor = true;
+            this.cbShowKeyPoint.CheckedChanged += new System.EventHandler(this.cbShowKeyPoint_CheckedChanged);
+            // 
             // Main_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(854, 733);
+            this.ClientSize = new System.Drawing.Size(854, 772);
             this.Controls.Add(this.dgvKeyPoints);
             this.Controls.Add(this.ActionGroup);
             this.Controls.Add(this.AdjustmentGroup);
@@ -426,6 +442,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnImageZoomScaleReset;
         private System.Windows.Forms.TrackBar trbImageZoom;
+        private System.Windows.Forms.CheckBox cbShowKeyPoint;
     }
 }
 

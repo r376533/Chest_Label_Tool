@@ -107,7 +107,7 @@ namespace Chest_Label_Tool.Lib
         {
             //Level為-100~100，所以要映射到0~2之間
             double reallevel = ((ContrastLevel) + 100) * 0.01;
-            Image<Bgr, Byte> tempimage = Image.Copy();
+            Image<Bgr, Byte> tempimage = Image;
             //調整對比度
             tempimage = tempimage * reallevel;
             //調整亮度
