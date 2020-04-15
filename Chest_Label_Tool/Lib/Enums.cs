@@ -16,10 +16,8 @@ namespace Chest_Label_Tool.Lib
         {
             [Description("沒有選擇")]
             None=-1,
-            [Description("縮放")]
-            Zoom = 0,
-            [Description("框選")]
-            Select = 1,
+            [Description("拖移")]
+            Drag = 0,
             [Description("打點")]
             Point = 2
         }

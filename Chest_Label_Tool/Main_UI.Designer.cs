@@ -71,6 +71,7 @@
             // 
             // ToolBar
             // 
+            this.ToolBar.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbFilebtn,
             this.toolStripDropDownButton1,
@@ -186,6 +187,9 @@
             this.cvImageBox.TabIndex = 2;
             this.cvImageBox.TabStop = false;
             this.cvImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseClick);
+            this.cvImageBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseDown);
+            this.cvImageBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseMove);
+            this.cvImageBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cvImageBox_MouseUp);
             // 
             // AdjustmentGroup
             // 
@@ -311,7 +315,7 @@
             // 
             this.cbAction.FormattingEnabled = true;
             this.cbAction.Items.AddRange(new object[] {
-            "縮放",
+            "拖移",
             "打點"});
             this.cbAction.Location = new System.Drawing.Point(8, 37);
             this.cbAction.Name = "cbAction";

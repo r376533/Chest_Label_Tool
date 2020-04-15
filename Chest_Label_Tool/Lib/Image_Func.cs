@@ -152,5 +152,19 @@ namespace Chest_Label_Tool.Lib
             img.Draw(line, DrawColor,10);
             return img;
         }
+
+        /// <summary>
+        /// 取得倆的點的直線距離
+        /// </summary>
+        /// <param name="P1"></param>
+        /// <param name="P2"></param>
+        /// <returns></returns>
+        public static double GetDistance(Point P1, Point P2)
+        {
+            double x_diff = Math.Pow(P1.X - P2.X, 2);
+            double y_diff = Math.Pow(P1.Y - P2.Y, 2);
+            double dis = Math.Pow(x_diff + y_diff, 0.5);
+            return dis;
+        }
     }
 }

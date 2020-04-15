@@ -32,10 +32,9 @@ namespace Chest_Label_Tool
         private Image<Bgr, Byte> RightNowImage, OriginalImage;
         private Bgr Color_Red;
         private Bgr Color_Blue;
-        private double LastTimeZoomRate;
         private double MinZoomRate;
         private double MaxZoomRate;
-        private Point MouseLastTimePoint;
+        private double NearThreadHold;
 
         private ProgramAction RightNowMode;
 
@@ -87,6 +86,10 @@ namespace Chest_Label_Tool
             #region 隱藏放大視窗按鈕
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            #endregion
+
+            #region 靠近點位的距離
+            NearThreadHold = 10;
             #endregion
 
             cvImageBox.MouseWheel += cvImageBox_MouseWheelEvent;
@@ -173,12 +176,12 @@ namespace Chest_Label_Tool
                 Point ImageLocation = Image_Func.GetImagePointFromImageBox(cvImageBox, e.Location);
                 switch (RightNowMode) 
                 {
-                    case ProgramAction.Zoom:
-                        break;
-                    case ProgramAction.Select:
-                        break;
                     case ProgramAction.Point:
                         AddPoint(ImageLocation);
+                        break;
+                    case ProgramAction.Drag:
+                        break;
+                    default:
                         break;
                 }
             }
@@ -198,7 +201,6 @@ namespace Chest_Label_Tool
             double Final_Zoom_Rate = Math.Max(X_Zoom_Rate, Y_Zoom_Rate);
             MinZoomRate = Final_Zoom_Rate;
             MaxZoomRate = 1; //影像最多倍放大比例
-            LastTimeZoomRate = Final_Zoom_Rate;
             cvImageBox.Image = RightNowImage;
             ChangeZoom(new Point(ImageWindoeSize.Width / 2, ImageWindoeSize.Height / 2), 0);
             cvImageBox.HorizontalScrollBar.Visible = true;
@@ -230,6 +232,105 @@ namespace Chest_Label_Tool
             }
             trbImageZoom.Value = nowvalue;
             trbImageZoom_Scroll(null, null);
+        }
+
+
+        private Nullable<Point> MouseDownPoint;
+        private Nullable<Point> MouseUpPoint;
+        private void cvImageBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (OriginalImage != null && RightNowMode == ProgramAction.Drag) 
+            {
+                MouseDownPoint = e.Location;
+                if (this.Cursor == Cursors.Hand) 
+                {
+                    this.Cursor = Cursors.SizeAll;
+                }
+            }
+        }
+
+        private void cvImageBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (OriginalImage != null && RightNowMode == ProgramAction.Drag)
+            {
+                MouseUpPoint = e.Location;
+                if (MouseDownPoint != null && this.Cursor == Cursors.SizeAll) 
+                {
+                    cvImageBox_MouseDraged(cvImageBox, MouseDownPoint.Value, MouseUpPoint.Value);
+                }
+            }
+            MouseDownPoint = null;
+            MouseUpPoint = null;
+            this.Cursor = Cursors.Default;
+        }
+
+        private void cvImageBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (OriginalImage != null && RightNowMode == ProgramAction.Drag)
+            {
+                if (this.Cursor == Cursors.Default || this.Cursor == Cursors.Hand)
+                {
+                    if (IsNearPoint(e.Location))
+                    {
+                        this.Cursor = Cursors.Hand;
+                    }
+                    else 
+                    {
+                        this.Cursor = Cursors.Default;
+                    }
+                }
+                else if (this.Cursor == Cursors.SizeAll) 
+                {
+                    //正在拖曳
+                }
+            }
+        }
+
+        private void cvImageBox_MouseDraged(object sender, Point StartPoint, Point EndPoint) 
+        {
+            if (OriginalImage != null && RightNowMode == ProgramAction.Drag)
+            {
+                Point StartPointInImage = Image_Func.GetImagePointFromImageBox(cvImageBox, StartPoint);
+                Point EndPointInImage = Image_Func.GetImagePointFromImageBox(cvImageBox, EndPoint);
+                for (int i = 0; i < LabelLog.KeyPoints.Count; i++)
+                {
+                    Point? KeyPoint = LabelLog.KeyPoints[i];
+                    if (KeyPoint != null) 
+                    {
+                        if (Image_Func.GetDistance(KeyPoint.Value, StartPointInImage) <= NearThreadHold ) 
+                        {
+                            //代表這個點要改
+                            LabelLog.KeyPoints[i] = EndPointInImage;
+                            //修改完後要更新影像
+                            ImageProc();
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private bool IsNearPoint(Point MousePoint) 
+        {
+            bool Result = false;
+            if (LabelLog.KeyPoints.Count > 0) 
+            {
+                Point MouseInImagePoint = Image_Func.GetImagePointFromImageBox(cvImageBox, MousePoint);
+                for (int i = 0; i < LabelLog.KeyPoints.Count; i++)
+                {
+                    Point? P = LabelLog.KeyPoints[i];
+                    if (P != null) 
+                    {
+                        double Distance = Image_Func.GetDistance(MouseInImagePoint, P.Value);
+                        if (Distance <= NearThreadHold) 
+                        {
+                            Result = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            return Result;
         }
         #endregion
 
@@ -292,7 +393,7 @@ namespace Chest_Label_Tool
             switch (index) 
             {
                 case 0:
-                    RightNowMode = ProgramAction.Zoom;
+                    RightNowMode = ProgramAction.Drag;
                     //cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.PanAndZoom;
                     cvImageBox.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
                     lblPointInfo.Text = "...";
