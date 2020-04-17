@@ -139,6 +139,11 @@ namespace Chest_Label_Tool
                 Func.WriteText(BackUpPath, V1LogStr);
                 #endregion
                 //讀取V1檔案
+                if (SaveResultV2.IsVersion2(V1LogStr)) 
+                {
+                    //如果是V2版本則免轉換跳過
+                    continue;
+                }
                 SaveResultV1 V1Log = SaveResultV1.ReadFile(JsonFilePath);
                 //轉V2
                 SaveResultV2 V2Log = SaveResultV2.Convert(V1Log, TempDcmInfo);
