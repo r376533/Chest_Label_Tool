@@ -100,10 +100,11 @@ namespace Chest_Label_Tool
         {
             if (OriginalImage != null) 
             {
-                if (MessageBox.Show("是否要對上一次的操作結果儲存?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) 
-                {
-                    SaveLabelFile();
-                }
+                //if (MessageBox.Show("是否要對上一次的操作結果儲存?", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) 
+                //{
+                //    SaveLabelFile();
+                //}
+                SaveLabelFile();
             }
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
