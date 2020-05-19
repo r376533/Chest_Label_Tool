@@ -487,6 +487,11 @@ namespace Chest_Label_Tool
             if (!String.IsNullOrEmpty(TargetPath))
             {
                 LabelLog = SaveResultReader.ReadFromFile(TargetPath,RightNowInfo);
+                //判斷讀出來的檔案是否有13個點，沒有則初始化
+                if (LabelLog.KeyPoints.Count != 13) 
+                {
+                    LabelLog = new SaveResultV2(DcmImagePath);
+                }
             }
             else 
             {
