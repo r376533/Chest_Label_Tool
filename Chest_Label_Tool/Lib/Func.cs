@@ -157,5 +157,18 @@ namespace Chest_Label_Tool.Lib
             }
             return Paths;
         }
+
+        public static bool CopyFile(string SourcePath,string TargetPath) 
+        {
+            try 
+            {
+                File.Copy(SourcePath, TargetPath);
+                return true;
+            } 
+            catch 
+            {
+                return false;
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,17 @@ namespace Chest_Label_Tool
                 }
             }
         }
-
+        private void btnBrowser2_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    string SelectPath = dialog.SelectedPath;
+                    txtTargetPath.Text = SelectPath;
+                }
+            }
+        }
         private void chiYaOutPage_FormClosing(object sender, FormClosingEventArgs e)
         {
             //當使用者按下X關閉視窗，真正的行為應該是要隱藏視窗
@@ -42,19 +53,48 @@ namespace Chest_Label_Tool
         private void btnProcess_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
-            string TargetPath = txtFilePath.Text;
-            string TargetPatten = "*.json";
-            List<string> paths = Func.GetFilesFromDir(TargetPath, TargetPatten);
+            string SourcePath = txtFilePath.Text;
+            string SourcePatten = "*.json";
+            string TargetPath = txtTargetPath.Text;
+            List<string> paths = Func.GetFilesFromDir(SourcePath, SourcePatten);
             List<SaveResultV2> Results = new List<SaveResultV2>();
+            StringBuilder ErrorBuilder = new StringBuilder();
             for (int i = 0; i < paths.Count; i++)
             {
                 string jsonpath = paths[i];
+                string dcmPath = jsonpath.Replace(".json", ".dcm");
+                string FileName = Path.GetFileName(dcmPath);
                 SaveResultV2 item = SaveResultV2.ReadFile(jsonpath);
-                Results.Add(item);
+                //判斷是否是V2版本存檔跟是否有滿足13個點
+                if (item.ResultVersion == "2" && item.KeyPoints.Count == 13 ) 
+                {
+                    string Message = String.Format("Check:{0}/{1}", i, paths.Count);
+                    lblMessage.Text = Message;
+                    bool HaveNullNode = true;
+                    foreach (Nullable<Point> point in item.KeyPoints)
+                    {
+                        if (point == null) 
+                        {
+                            HaveNullNode = false;
+                            break;
+                        }
+                    }
+                    if (HaveNullNode)
+                    {
+                        Func.CopyFile(dcmPath, TargetPath + @"\" + FileName);
+                        Results.Add(item);
+                    }
+                    else 
+                    {
+                        ErrorBuilder.Append(String.Format("{0}{1}", jsonpath, Environment.NewLine));
+                    }
+                }
             }
 
             for (int i = 0; i < Results.Count; i++)
             {
+                string Message = String.Format("Proc:{0}/{1}", i, Results.Count);
+                lblMessage.Text = Message;
                 if (i == Results.Count - 1)
                 {
                     ProcessFile(ref sb, Results[i], false);
@@ -66,6 +106,7 @@ namespace Chest_Label_Tool
             }
 
             Func.WriteText(TargetPath + @"\"+"Total.txt", sb.ToString());
+            Func.WriteText(TargetPath + @"\" + "Error.txt", ErrorBuilder.ToString());
             MessageBox.Show("OK", "OK");
         }
 
@@ -118,5 +159,6 @@ namespace Chest_Label_Tool
             return new int[] { X_min, Y_min, X_max, Y_max };
         }
 
+        
     }
 }

@@ -44,6 +44,7 @@
             this.lblDebug = new System.Windows.Forms.ToolStripLabel();
             this.cvImageBox = new Emgu.CV.UI.ImageBox();
             this.AdjustmentGroup = new System.Windows.Forms.GroupBox();
+            this.cbShowKeyPoint = new System.Windows.Forms.CheckBox();
             this.trbImageZoom = new System.Windows.Forms.TrackBar();
             this.btnImageZoomScaleReset = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -59,7 +60,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
-            this.cbShowKeyPoint = new System.Windows.Forms.CheckBox();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -75,8 +76,8 @@
             this.ToolBar.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbFilebtn,
-            this.toolStripDropDownButton1,
             this.tbAboutbtn,
+            this.toolStripDropDownButton1,
             this.lblDebug});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
@@ -99,14 +100,14 @@
             // tbOpenFile
             // 
             this.tbOpenFile.Name = "tbOpenFile";
-            this.tbOpenFile.Size = new System.Drawing.Size(180, 22);
+            this.tbOpenFile.Size = new System.Drawing.Size(122, 22);
             this.tbOpenFile.Text = "開啟檔案";
             this.tbOpenFile.Click += new System.EventHandler(this.tbOpenFile_Click);
             // 
             // 儲存檔案ToolStripMenuItem
             // 
             this.儲存檔案ToolStripMenuItem.Name = "儲存檔案ToolStripMenuItem";
-            this.儲存檔案ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.儲存檔案ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.儲存檔案ToolStripMenuItem.Text = "儲存檔案";
             this.儲存檔案ToolStripMenuItem.Visible = false;
             this.儲存檔案ToolStripMenuItem.Click += new System.EventHandler(this.儲存檔案ToolStripMenuItem_Click);
@@ -123,6 +124,7 @@
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 22);
             this.toolStripDropDownButton1.Text = "批次功能";
+            this.toolStripDropDownButton1.Visible = false;
             // 
             // tbBatchConvertResult
             // 
@@ -136,7 +138,6 @@
             this.奇業轉出ToolStripMenuItem.Name = "奇業轉出ToolStripMenuItem";
             this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.奇業轉出ToolStripMenuItem.Text = "奇業轉出";
-            this.奇業轉出ToolStripMenuItem.Visible = false;
             this.奇業轉出ToolStripMenuItem.Click += new System.EventHandler(this.奇業轉出ToolStripMenuItem_Click);
             // 
             // 批次紀錄點位邏輯驗證ToolStripMenuItem
@@ -151,19 +152,20 @@
             this.tbAboutbtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tbAboutbtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbSettingPage,
-            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem});
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem,
+            this.versionToolStripMenuItem});
             this.tbAboutbtn.Image = ((System.Drawing.Image)(resources.GetObject("tbAboutbtn.Image")));
             this.tbAboutbtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbAboutbtn.Name = "tbAboutbtn";
             this.tbAboutbtn.Size = new System.Drawing.Size(44, 22);
             this.tbAboutbtn.Text = "關於";
-            this.tbAboutbtn.Visible = false;
             // 
             // tbSettingPage
             // 
             this.tbSettingPage.Name = "tbSettingPage";
             this.tbSettingPage.Size = new System.Drawing.Size(290, 22);
             this.tbSettingPage.Text = "系統設定";
+            this.tbSettingPage.Visible = false;
             this.tbSettingPage.Click += new System.EventHandler(this.tbSettingPage_Click);
             // 
             // 這個表單是多於設計現階段用不到隱藏ToolStripMenuItem
@@ -171,6 +173,7 @@
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Name = "這個表單是多於設計現階段用不到隱藏ToolStripMenuItem";
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Text = "這個表單是多於設計，現階段用不到隱藏";
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Visible = false;
             // 
             // lblDebug
             // 
@@ -212,6 +215,19 @@
             this.AdjustmentGroup.TabIndex = 3;
             this.AdjustmentGroup.TabStop = false;
             this.AdjustmentGroup.Text = "影像調整";
+            // 
+            // cbShowKeyPoint
+            // 
+            this.cbShowKeyPoint.AutoSize = true;
+            this.cbShowKeyPoint.Checked = true;
+            this.cbShowKeyPoint.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbShowKeyPoint.Location = new System.Drawing.Point(8, 190);
+            this.cbShowKeyPoint.Name = "cbShowKeyPoint";
+            this.cbShowKeyPoint.Size = new System.Drawing.Size(72, 16);
+            this.cbShowKeyPoint.TabIndex = 9;
+            this.cbShowKeyPoint.Text = "顯示畫點";
+            this.cbShowKeyPoint.UseVisualStyleBackColor = true;
+            this.cbShowKeyPoint.CheckedChanged += new System.EventHandler(this.cbShowKeyPoint_CheckedChanged);
             // 
             // trbImageZoom
             // 
@@ -366,18 +382,11 @@
             this.dgvKeyPoints.TabIndex = 5;
             this.dgvKeyPoints.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvKeyPoints_UserDeletingRow);
             // 
-            // cbShowKeyPoint
+            // versionToolStripMenuItem
             // 
-            this.cbShowKeyPoint.AutoSize = true;
-            this.cbShowKeyPoint.Checked = true;
-            this.cbShowKeyPoint.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbShowKeyPoint.Location = new System.Drawing.Point(8, 190);
-            this.cbShowKeyPoint.Name = "cbShowKeyPoint";
-            this.cbShowKeyPoint.Size = new System.Drawing.Size(48, 11);
-            this.cbShowKeyPoint.TabIndex = 9;
-            this.cbShowKeyPoint.Text = "顯示畫點";
-            this.cbShowKeyPoint.UseVisualStyleBackColor = true;
-            this.cbShowKeyPoint.CheckedChanged += new System.EventHandler(this.cbShowKeyPoint_CheckedChanged);
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.versionToolStripMenuItem.Text = "2.3Version";
             // 
             // Main_UI
             // 
@@ -443,6 +452,7 @@
         private System.Windows.Forms.Button btnImageZoomScaleReset;
         private System.Windows.Forms.TrackBar trbImageZoom;
         private System.Windows.Forms.CheckBox cbShowKeyPoint;
+        private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
     }
 }
 
