@@ -34,13 +34,14 @@
             this.tbFilebtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.儲存檔案ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.tbBatchConvertResult = new System.Windows.Forms.ToolStripMenuItem();
             this.奇業轉出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.批次紀錄點位邏輯驗證ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbAboutbtn = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tbSettingPage = new System.Windows.Forms.ToolStripMenuItem();
-            this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblDebug = new System.Windows.Forms.ToolStripLabel();
             this.cvImageBox = new Emgu.CV.UI.ImageBox();
             this.AdjustmentGroup = new System.Windows.Forms.GroupBox();
@@ -60,7 +61,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvKeyPoints = new System.Windows.Forms.DataGridView();
-            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvImageBox)).BeginInit();
             this.AdjustmentGroup.SuspendLayout();
@@ -112,41 +112,6 @@
             this.儲存檔案ToolStripMenuItem.Visible = false;
             this.儲存檔案ToolStripMenuItem.Click += new System.EventHandler(this.儲存檔案ToolStripMenuItem_Click);
             // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbBatchConvertResult,
-            this.奇業轉出ToolStripMenuItem,
-            this.批次紀錄點位邏輯驗證ToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 22);
-            this.toolStripDropDownButton1.Text = "批次功能";
-            this.toolStripDropDownButton1.Visible = false;
-            // 
-            // tbBatchConvertResult
-            // 
-            this.tbBatchConvertResult.Name = "tbBatchConvertResult";
-            this.tbBatchConvertResult.Size = new System.Drawing.Size(194, 22);
-            this.tbBatchConvertResult.Text = "批次轉換紀錄檔";
-            this.tbBatchConvertResult.Click += new System.EventHandler(this.tbBatchConvertResult_Click);
-            // 
-            // 奇業轉出ToolStripMenuItem
-            // 
-            this.奇業轉出ToolStripMenuItem.Name = "奇業轉出ToolStripMenuItem";
-            this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.奇業轉出ToolStripMenuItem.Text = "奇業轉出";
-            this.奇業轉出ToolStripMenuItem.Click += new System.EventHandler(this.奇業轉出ToolStripMenuItem_Click);
-            // 
-            // 批次紀錄點位邏輯驗證ToolStripMenuItem
-            // 
-            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Name = "批次紀錄點位邏輯驗證ToolStripMenuItem";
-            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Text = "批次紀錄點位邏輯驗證";
-            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Click += new System.EventHandler(this.批次紀錄點位邏輯驗證ToolStripMenuItem_Click);
-            // 
             // tbAboutbtn
             // 
             this.tbAboutbtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -174,6 +139,46 @@
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Text = "這個表單是多於設計，現階段用不到隱藏";
             this.這個表單是多於設計現階段用不到隱藏ToolStripMenuItem.Visible = false;
+            // 
+            // versionToolStripMenuItem
+            // 
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
+            this.versionToolStripMenuItem.Text = "2.3Version";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbBatchConvertResult,
+            this.奇業轉出ToolStripMenuItem,
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(68, 22);
+            this.toolStripDropDownButton1.Text = "批次功能";
+            // 
+            // tbBatchConvertResult
+            // 
+            this.tbBatchConvertResult.Name = "tbBatchConvertResult";
+            this.tbBatchConvertResult.Size = new System.Drawing.Size(194, 22);
+            this.tbBatchConvertResult.Text = "批次轉換紀錄檔";
+            this.tbBatchConvertResult.Click += new System.EventHandler(this.tbBatchConvertResult_Click);
+            // 
+            // 奇業轉出ToolStripMenuItem
+            // 
+            this.奇業轉出ToolStripMenuItem.Name = "奇業轉出ToolStripMenuItem";
+            this.奇業轉出ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.奇業轉出ToolStripMenuItem.Text = "奇業轉出";
+            this.奇業轉出ToolStripMenuItem.Click += new System.EventHandler(this.奇業轉出ToolStripMenuItem_Click);
+            // 
+            // 批次紀錄點位邏輯驗證ToolStripMenuItem
+            // 
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Name = "批次紀錄點位邏輯驗證ToolStripMenuItem";
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Text = "批次紀錄點位邏輯驗證";
+            this.批次紀錄點位邏輯驗證ToolStripMenuItem.Click += new System.EventHandler(this.批次紀錄點位邏輯驗證ToolStripMenuItem_Click);
             // 
             // lblDebug
             // 
@@ -381,12 +386,6 @@
             this.dgvKeyPoints.Size = new System.Drawing.Size(301, 366);
             this.dgvKeyPoints.TabIndex = 5;
             this.dgvKeyPoints.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvKeyPoints_UserDeletingRow);
-            // 
-            // versionToolStripMenuItem
-            // 
-            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
-            this.versionToolStripMenuItem.Text = "2.3Version";
             // 
             // Main_UI
             // 

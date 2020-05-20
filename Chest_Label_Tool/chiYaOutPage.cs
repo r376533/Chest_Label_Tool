@@ -81,6 +81,7 @@ namespace Chest_Label_Tool
                     }
                     if (HaveNullNode)
                     {
+                        Func.CopyFile(jsonpath, TargetPath + @"\" + FileName.Replace(".dcm",".json"));
                         Func.CopyFile(dcmPath, TargetPath + @"\" + FileName);
                         Results.Add(item);
                     }
