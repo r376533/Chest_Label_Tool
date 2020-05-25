@@ -215,8 +215,12 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Chest_Label_Tool_TemporaryKey.pfx" />
-    <None Include="EmguX64.rar" />
-    <None Include="EmguX86.rar" />
+    <None Include="EmguX64.rar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="EmguX86.rar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ILMerge.props" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
