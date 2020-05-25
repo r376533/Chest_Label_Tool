@@ -52,7 +52,7 @@ namespace Chest_Label_Tool.Lib
         /// <param name="TargetPath">存檔路徑</param>
         /// <param name="TargetFileName">轉換後的檔案名稱，若放null或空字元，則與Dcm檔案同名稱</param>
         /// <returns>檔案存檔後的絕對位址，如果回傳空字串則表示存檔失敗</returns>
-        public static string DcmToPNG(string DcmPath,string TargetPath,string TargetFileName="") 
+        public static string DcmToJPG(string DcmPath,string TargetPath,string TargetFileName="") 
         {
             string Result = String.Empty;
             string FileName = Path.GetFileNameWithoutExtension(DcmPath);
@@ -69,7 +69,7 @@ namespace Chest_Label_Tool.Lib
                 string finalpath = Path.Combine(TargetPath, resultfilename);
                 //檔案名稱不為異常才可以轉換
                 DicomImage dcmimage = new DicomImage(DcmPath);
-                dcmimage.RenderImage().AsClonedBitmap().Save(finalpath, ImageFormat.Png);
+                dcmimage.RenderImage().AsClonedBitmap().Save(finalpath, ImageFormat.Jpeg);
                 Result = finalpath;
             }
             return Result;

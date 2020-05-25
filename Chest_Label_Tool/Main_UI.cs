@@ -95,6 +95,7 @@ namespace Chest_Label_Tool
             cvImageBox.MouseWheel += cvImageBox_MouseWheelEvent;
         }
 
+   
         #region ToolBar
         private void tbOpenFile_Click(object sender, EventArgs e)
         {
@@ -120,7 +121,7 @@ namespace Chest_Label_Tool
                     if (!Func.CheckFileExist(targetFilePath))
                     {
                         //檔案不存在
-                        string jpgFilePath = Image_Func.DcmToPNG(ImagePath_Dcm, SettingObj.SavePath);
+                        string jpgFilePath = Image_Func.DcmToJPG(ImagePath_Dcm, SettingObj.SavePath);
                         targetFilePath = jpgFilePath;
                     }
                     ImagePath_Jpg = targetFilePath;
